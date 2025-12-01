@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriHacker | Contador Real</title>
+    <style>
+        body {
+            background: #000;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            text-shadow: 0 0 10px #00ff41;
+        }
+        .start-btn {
+            background: #00ff41;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .counter {
+            font-size: 3rem;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌱 NutriHacker PRO</h1>
+    <button class="start-btn" id="startBtn">ENTRAR</button>
+    <div class="counter">👽 Visitantes: <span id="visitas">0</span></div>
+
+    <script>
+        const NAMESPACE = "nutrihacker-github";
+        const KEY = "visitas-reales";
+        const startBtn = document.getElementById("startBtn");
+        const visitasElement = document.getElementById("visitas");
+
+        startBtn.addEventListener("click", () => {
+            startBtn.style.display = "none";
+            
+            if (!localStorage.getItem("ya-visito")) {
+                fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        visitasElement.textContent = data.value;
+                        localStorage.setItem("ya-visito", "true");
+                    });
+            } else {
+                fetch(`https://api.countapi.xyz/get/${NAMESPACE}/${KEY}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        visitasElement.textContent = data.value;
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

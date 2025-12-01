@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPCCrea | ✨ Eeel más pro</title>
+    <style>
+        /* === ESTILOS GENERALES (100 líneas de puro estilo) === */
+        :root {
+            --primary: #9c88ff;
+            --secondary: #6c5ce7;
+            --dark: #121212;
+            --light: #f8f9fa;
+            --accent: #ff7675;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* === PANTALLA DE CARGA (50 líneas) === */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+        }
+        
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 30px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            background: linear-gradient(90deg, #ff0000, #ff00ff, #0000ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient 3s ease infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* === BANNER RGB (60 líneas) === */
+        header {
+            background: linear-gradient(135deg, 
+                rgba(156, 136, 255, 0.8), 
+                rgba(108, 92, 231, 0.9)), 
+                url('https://media.giphy.com/media/XdUI5yjq8QvjVJYlOe/giphy.gif');
+            background-size: cover;
+            background-position: center;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(255, 0, 0, 0.3), 
+                rgba(0, 255, 255, 0.3), 
+                rgba(0, 0, 255, 0.3));
+            opacity: 0.5;
+            z-index: 0;
+            animation: rgb-banner 15s linear infinite;
+        }
+        
+        @keyframes rgb-banner {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .rgb-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(90deg, 
+                #ff0000, #ff00ff, #0000ff, #00ffff, #00ff00, #ffff00, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rgb-effect 8s linear infinite;
+        }
+        
+        /* === HAMBURGUESA PRO (80 líneas) === */
+        .hamburger {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(156, 136, 255, 0.4);
+            transition: all 0.4s;
+        }
+        
+        .hamburger:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 4px 0;
+            transition: all 0.3s;
+        }
+        
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            transition: right 0.5s;
+            display: flex;
+            flex-direction: column;
+            padding-top: 100px;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        nav.active {
+            right: 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            width: 100%;
+        }
+        
+        nav ul li a {
+            display: block;
+            padding: 15px 30px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--primary);
+            padding-left: 40px;
+        }
+        
+        .menu-gif {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-gif img {
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* === GALERÍA PRO (120 líneas) === */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 25px;
+            padding: 40px;
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            height: 600px;
+            width: 400px;
+            margin: 0 auto;
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(156, 136, 255, 0.4);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-item::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        }
+        
+        .gallery-item h3 {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 1;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* === REDES SOCIALES (50 líneas) === */
+        .social-section {
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .social-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(156, 136, 255, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(156, 136, 255, 0.5);
+            background: linear-gradient(135deg, var(--accent), #ff4757);
+        }
+        
+        .social-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* === FOOTER (30 líneas) === */
+        footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* === EFECTO SECRETO (20 líneas) === */
+        .secret-egg {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(255, 118, 117, 0.5);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+        
+        .secret-egg:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+    </style>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Pantalla de carga -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div class="loading-text">DPCCrea Loading...</div>
+    </div>
+    
+    <!-- Botón hamburguesa -->
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    
+    <!-- Menú desplegable -->
+    <nav id="nav-menu">
+        <ul>
+            <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="#catalogo"><i class="fas fa-images"></i> Catálogo</a></li>
+            <li><a href="#redes"><i class="fas fa-heart"></i> Redes</a></li>
+            <li><a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
+        </ul>
+        
+        <div class="menu-gif">
+            <img src="https://media.giphy.com/media/Ln2dAW9oycjgmTpjXa/giphy.gif" alt="GIF divertido">
+            <p style="color: #aaa; margin-top: 10px;">¡Síguenos en redes!</p>
+        </div>
+    </nav>
+    
+    <!-- Banner RGB -->
+    <header id="inicio">
+        <div class="header-content">
+            <h1 class="rgb-title">DPCCrea</h1>
+            <p style="font-size: 1.5rem; color: rgba(255, 255, 255, 0.8);">Diseño • Creatividad • Innovación</p>
+        </div>
+    </header>
+    
+    <!-- Galería -->
+    <section id="catalogo" class="gallery">
+        <!-- Imágenes se cargan con JS -->
+    </section>
+    
+    <!-- Redes sociales -->
+    <section id="redes" class="social-section">
+        <h2 class="social-title">Nuestras Redes</h2>
+        <div class="social-buttons">
+            <a href="#" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="#" class="social-btn"><i class="fab fa-tiktok"></i> TikTok</a>
+            <a href="#" class="social-btn"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="#" class="social-btn"><i class="fab fa-twitter"></i> Twitter</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">DPCCrea</div>
+        <p>© 2023 Todos los derechos reservados</p>
+    </footer>
+    
+    <!-- Easter Egg -->
+    <div class="secret-egg" id="secretEgg">?</div>
+    
+    <script>
+        // === CÓDIGO JAVASCRIPT (100 líneas) ===
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pantalla de carga (5 segundos)
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 5000);
+            
+            // Menú hamburguesa
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            // Cargar imágenes de la galería (600x400)
+            const gallery = document.querySelector('.gallery');
+            const images = [
+                { src: 'assets/imagenes/1.jpg', title: 'Diseño Creativo 1' },
+                { src: 'assets/imagenes/2.jpg', title: 'Diseño Creativo 2' },
+                { src: 'assets/imagenes/3.jpg', title: 'Diseño Creativo 3' },
+                { src: 'assets/imagenes/4.jpg', title: 'Diseño Creativo 4' },
+                { src

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sexualidad e Identidad - DPCCrea | Mediación y Diversidad</title>
+    <meta name="description" content="Explora recursos educativos sobre sexualidad, identidad y diversidad en DPCCrea. Fomentamos la mediación escolar y un ambiente inclusivo con un enfoque en el respeto y el aprendizaje.">
+    <meta name="keywords" content="sexualidad, identidad, diversidad, mediación escolar, educación inclusiva, cyber time chasqui, respeto, comunidad educativa">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Sexualidad e Identidad - DPCCrea">
+    <meta property="og:description" content="Recursos educativos sobre sexualidad, identidad y diversidad con un enfoque en mediación escolar y respeto.">
+    <meta property="og:image" content="https://dpccrea.com/assets/og-image.jpg">
+    <meta property="og:url" content="https://dpccrea.com">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/x-icon" href="assets/imagenes/favicon.ico">
+    <style>
+        :root {
+            --hacker-green: #00ff41;
+            --hacker-cyan: #00f7ff;
+            --diversity-pink: #ff00ff;
+            --dark-color: #000;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        body {
+            background-color: var(--dark-color);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        .content {
+            transition: filter 0.5s ease;
+        }
+        .content.blur {
+            filter: blur(5px);
+        }
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .loader-content {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            border: 3px double var(--hacker-green);
+            padding: 30px;
+            box-shadow: 0 0 30px var(--hacker-cyan), 0 0 50px var(--hacker-green);
+            background: rgba(0, 0, 0, 0.85);
+            animation: scanline 4s linear infinite;
+        }
+        @keyframes scanline {
+            0% { box-shadow: 0 0 30px var(--hacker-cyan), 0 0 50px var(--hacker-green); }
+            50% { box-shadow: 0 0 50px var(--hacker-cyan), 0 0 30px var(--hacker-green); }
+            100% { box-shadow: 0 0 30px var(--hacker-cyan), 0 0 50px var(--hacker-green); }
+        }
+        .loader-header {
+            color: var(--hacker-green);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 0 0 15px var(--hacker-cyan);
+            animation: type 2s steps(20) infinite;
+        }
+        @keyframes type {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+        .loader-status {
+            color: var(--hacker-green);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background: #111;
+            border: 1px solid var(--hacker-cyan);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--diversity-pink), var(--hacker-green), var(--hacker-cyan));
+            transition: width 0.3s;
+        }
+        .loader-messages {
+            height: 120px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            padding: 10px;
+            margin-bottom: 20px;
+            background: #000;
+        }
+        .message {
+            color: var(--hacker-green);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        .message.success { color: #00ff00; }
+        .message.error { color: #ff0000; }
+        .message.warning { color: #ffff00; }
+        .loader-footer {
+            color: var(--hacker-cyan);
+            text-align: center;
+            font-size: 0.8rem;
+            text-shadow: 0 0 10px var(--hacker-cyan);
+        }
+        .cursor {
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        .version {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            color: var(--hacker-green);
+            font-size: 0.9rem;
+            text-shadow: 0 0 10px var(--hacker-cyan);
+            z-index: 1000;
+        }
+        .matrix-bg, .particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .matrix-bg {
+            opacity: 0.25;
+        }
+        .particles-bg {
+            opacity: 0.3;
+        }
+        .hamburger {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 70px;
+            height: 70px;
+            background: #111;
+            border: 3px double var(--hacker-green);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 0 20px var(--hacker-cyan);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px var(--hacker-cyan), 0 0 10px var(--hacker-green); }
+            50% { box-shadow: 0 0 40px var(--hacker-cyan), 0 0 20px var(--hacker-green); }
+            100% { box-shadow: 0 0 20px var(--hacker-cyan), 0 0 10px var(--hacker-green); }
+        }
+        .hamburger:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--hacker-cyan), 0 0 20px var(--hacker-green);
+        }
+        .hamburger div {
+            width: 35px;
+            height: 5px;
+            background: var(--hacker-cyan);
+            margin: 6px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--hacker-cyan);
+        }
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(10px, -10px);
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border-left: 4px double var(--hacker-cyan);
+            padding-top: 120px;
+            animation: scan-nav 3s linear infinite;
+        }
+        @keyframes scan-nav {
+            0% { border-left-color: var(--hacker-cyan); }
+            50% { border-left-color: var(--hacker-green); }
+            100% { border-left-color: var(--hacker-cyan); }
+        }
+        nav.active {
+            right: 0;
+            box-shadow: -10px 0 20px var(--hacker-cyan);
+        }
+        nav .logo {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: 0 auto 20px;
+            border: 3px solid var(--hacker-green);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--hacker-cyan);
+            transition: transform 0.3s ease;
+        }
+        nav .logo:hover {
+            transform: scale(1.05);
+        }
+        nav ul {
+            list-style: none;
+        }
+        nav ul li {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.3s ease;
+        }
+        nav.active ul li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        nav ul li:nth-child(1) { transition-delay: 0.1s; }
+        nav ul li:nth-child(2) { transition-delay: 0.2s; }
+        nav ul li:nth-child(3) { transition-delay: 0.3s; }
+        nav ul li:nth-child(4) { transition-delay: 0.4s; }
+        nav ul li:nth-child(5) { transition-delay: 0.5s; }
+        nav ul li:nth-child(6) { transition-delay: 0.6s; }
+        nav ul li a {
+            color: var(--hacker-green);
+            text-decoration: none;
+            display: block;
+            padding: 18px 35px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid #333;
+            background: rgba(0, 247, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        nav ul li a:hover {
+            background: rgba(0, 247, 255, 0.15);
+            padding-left: 45px;
+            text-shadow: 0 0 15px var(--hacker-cyan);
+            box-shadow: inset 0 0 10px var(--hacker-cyan);
+        }
+        .counter-container {
+            margin: 20px 35px;
+            text-align: center;
+            color: var(--hacker-green);
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px var(--hacker-cyan);
+            transition: all 0.3s ease;
+            opacity: 1;
+            position: relative;
+            pointer-events: none;
+        }
+        .counter-container div {
+            display: inline-block;
+            background: rgba(0, 255, 65, 0.2);
+            padding: 10px 20px;
+            border: 2px solid var(--hacker-green);
+            border-radius: 5px;
+            box-shadow: 0 0 15px var(--hacker-cyan);
+            min-height: 40px;
+            min-width: 100px;
+            pointer-events: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .counter-container:hover div {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--hacker-cyan), 0 0 15px var(--hacker-green);
+        }
+        .counter-container img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border: none;
+            pointer-events: none;
+        }
+        .counter-fallback {
+            color: var(--hacker-green);
+            font-size: 1rem;
+            text-shadow: 0 0 5px var(--hacker-cyan);
+        }
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -2px); }
+        }
+        header {
+            background: #000;
+            padding: 6rem 0;
+            text-align: center;
+            border-bottom: 4px solid var(--hacker-cyan);
+        }
+        h1 {
+            font-size: 4.5rem;
+            color: var(--hacker-green);
+            text-shadow: 0 0 25px var(--hacker-cyan);
+            letter-spacing: 5px;
+            animation: glitch 1.5s linear infinite;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 3px double var(--hacker-green);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 15px var(--hacker-cyan);
+        }
+        h2 {
+            color: var(--hacker-green);
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--hacker-cyan);
+            margin-bottom: 1rem;
+        }
+        h3 {
+            color: var(--hacker-cyan);
+            font-size: 1.3rem;
+            text-shadow: 0 0 8px var(--hacker-cyan);
+            margin: 1.5rem 0 0.8rem;
+        }
+        p, li {
+            color: white;
+            font-size: 1rem;
+            text-shadow: 0 0 5px var(--hacker-green);
+            margin-bottom: 0.8rem;
+        }
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .conflict-case, .diversity-section {
+            background: rgba(0, 20, 0, 0.3);
+            border-left: 4px solid var(--diversity-pink);
+            padding: 1.2rem;
+            margin: 1rem 0;
+        }
+        .agreements-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border: 2px solid var(--hacker-green);
+        }
+        .agreements-table th, .agreements-table td {
+            border: 1px solid var(--hacker-green);
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .agreements-table th {
+            background: rgba(0, 30, 0, 0.5);
+            color: var(--hacker-green);
+        }
+        .quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 20, 0, 0.3);
+            border-left: 4px solid var(--hacker-cyan);
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--hacker-green);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            border-top: 3px solid var(--hacker-cyan);
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.4rem; }
+            .container { padding: 10px; }
+            .loader-content { padding: 20px; max-width: 90%; }
+            nav { width: 280px; }
+            .hamburger { width: 60px; height: 60px; }
+            .hamburger div { width: 30px; height: 4px; margin: 5px 0; }
+            .counter-container { margin: 10px 20px; font-size: 1rem; }
+            .counter-container div { padding: 8px 15px; min-width: 80px; }
+            nav .logo { width: 80px; height: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-header">DPCCREA MEDIATION SYSTEM</div>
+            <div class="loader-status">Iniciando sistema... <span class="cursor">_</span></div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="loader-messages" id="loaderMessages">
+                <div class="message">> Inicializando módulos de mediación...</div>
+                <div class="message">> Cargando recursos de diversidad...</div>
+                <div class="message success">> Conexión establecida</div>
+            </div>
+            <div class="loader-footer">© DPCCREA SECURITY SYSTEM v3.2.0</div>
+        </div>
+    </div>
+    <canvas id="matrixCanvas" class="matrix-bg"></canvas>
+    <canvas id="particlesCanvas" class="particles-bg"></canvas>
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <nav id="navMenu">
+        <img src="assets/imagenes/logo.png" alt="DPCCrea Logo" class="logo">
+        <ul>
+            <li><a href="#inicio">INICIO</a></li>
+            <li><a href="#diversidad">SEXUALIDAD E IDENTIDAD</a></li>
+            <li><a href="#conceptos">CONCEPTOS</a></li>
+            <li><a href="#proceso">PROCESO</a></li>
+            <li><a href="#caso">CASO PRÁCTICO</a></li>
+            <li><a href="#acuerdos">ACUERDOS</a></li>
+            <li class="counter-container">
+                <div id="sfcwcwbjwc1qgqszpjapgf4ym5spfenubxc">
+                    <span class="counter-fallback">Cargando contador...</span>
+                </div>
+                <script type="text/javascript" src="https://counter1.optistats.ovh/private/counter.js?c=wcwbjwc1qgqszpjapgf4ym5spfenubxc&down=async" async></script>
+                <noscript>
+                    <img src="https://counter1.optistats.ovh/private/contadorvisitasgratis.php?c=wcwbjwc1qgqszpjapgf4ym5spfenubxc" border="0" title="contador de visitas" alt="contador de visitas">
+                </noscript>
+            </li>
+        </ul>
+    </nav>
+    <div class="content" id="mainContent">
+        <header id="inicio">
+            <h1>Círculo de Mediación</h1>
+            <p style="margin-top: 1rem; color: var(--hacker-cyan); font-size: 1.4rem;">Transformando conflictos en oportunidades de aprendizaje</p>
+            <p style="color: var(--hacker-green); font-size: 1.2rem;">Institución Educativa N7228 "Peruano Canadiense" - Villa El Salvador</p>
+            <p style="color: var(--hacker-green); font-size: 1.2rem;">Grado y Sección: 5B</p>
+        </header>
+        <div class="container">
+            <section class="card" id="diversidad">
+                <h2>Sexualidad e Identidad</h2>
+                <div class="diversity-section">
+                    <p>En DPCCrea, promovemos un ambiente inclusivo donde la diversidad es una fortaleza. Nuestra misión es educar sobre sexualidad e identidad con respeto y empatía, integrando valores peruanos con un toque cyberpunk a través de nuestro proyecto <span style="color: var(--diversity-pink); text-shadow: 0 0 8px var(--diversity-pink);">Cyber Time Chasqui</span>.</p>
+                    <ul>
+                        <li>Espacios seguros para el diálogo sobre género y orientación sexual.</li>
+                        <li>Educación sexual integral para todas las edades.</li>
+                        <li>Fomento de la mediación escolar para resolver conflictos con empatía.</li>
+                    </ul>
+                    <p>¡Únete a nuestros talleres para aprender más!</p>
+                </div>
+            </section>
+            <section class="card" id="conceptos">
+                <h2>Conceptos Básicos</h2>
+                <h3>¿Qué es la mediación?</h3>
+                <p>La mediación es un proceso voluntario donde un mediador neutral ayuda a las partes en conflicto a comunicarse, entender sus necesidades y encontrar soluciones mutuamente aceptables.</p>
+                <h3>Beneficios de la mediación escolar</h3>
+                <ul>
+                    <li><strong>Mejora la convivencia:</strong> Fomenta relaciones positivas y un ambiente armónico.</li>
+                    <li><strong>Habilidades sociales:</strong> Enseña escucha activa, respeto y trabajo en equipo.</li>
+                    <li><strong>Rendimiento:</strong> Reduce conflictos para un mejor enfoque en los estudios.</li>
+                </ul>
+                <h3>Círculo de Mediación</h3>
+                <p>Una técnica donde los participantes se sientan en círculo para una comunicación igualitaria y segura.</p>
+                <h3>Conferencia Restaurativa</h3>
+                <p>Un proceso que repara el daño causado por conflictos, enfocándose en las necesidades de los afectados.</p>
+            </section>
+            <section class="card" id="proceso">
+                <h2>Tiempos del Círculo</h2>
+                <ol>
+                    <li><strong>Apertura:</strong> Establecer normas y ambiente seguro.</li>
+                    <li><strong>Conflicto:</strong> Cada parte expone su perspectiva.</li>
+                    <li><strong>Sentimientos:</strong> Expresión del impacto emocional.</li>
+                    <li><strong>Soluciones:</strong> Propuestas para reparar el daño.</li>
+                    <li><strong>Cierre:</strong> Acuerdos y compromisos.</li>
+                </ol>
+            </section>
+            <section class="card" id="caso">
+                <h2>Proceso de Mediación</h2>
+                <h3>1. Descripción del Conflicto</h3>
+                <div class="conflict-case">
+                    <p>El compañero Luis Adriano faltó a la exposición del grupo, afectando la nota y generando tensión con Chapoñan.</p>
+                </div>
+                <h3>2. Mediador</h3>
+                <p><strong>Nombre:</strong> Mathias Felipe<br><strong>Cualidades:</strong> Sociable, imparcial, escucha activa.</p>
+                <h3>3. Aplicación de la Mediación</h3>
+                <p><strong>Valores:</strong> Imparcialidad, empatía, responsabilidad, escucha activa.</p>
+                <p><strong>Normas de comunicación:</strong></p>
+                <ul>
+                    <li>No interrumpir al compañero.</li>
+                    <li>Hablar con respeto.</li>
+                    <li>Expresar opiniones sin presión.</li>
+                    <li>Evitar distracciones.</li>
+                </ul>
+                <h3>4. Justicia Restaurativa</h3>
+                <p><strong>Pregunta a Chaucas:</strong> ¿Cómo influyó la organización del grupo?</p>
+                <p><strong>Respuesta:</strong> "Faltó planificación y previsión para inasistencias."</p>
+                <p><strong>Pregunta a Chapoñan:</strong> ¿Cómo afectaron tus comentarios?</p>
+                <p><strong>Respuesta:</strong> "Generaron desconfianza en el grupo."</p>
+            </section>
+            <section class="card" id="acuerdos">
+                <h2>Acuerdos y Compromisos</h2>
+                <h3>Alternativas de Solución</h3>
+                <ul>
+                    <li>Preparar material con antelación.</li>
+                    <li>Justificar faltas.</li>
+                    <li>Comprometerse a no faltar.</li>
+                    <li>Establecer normas grupales.</li>
+                </ul>
+                <h3>Acta de Acuerdos</h3>
+                <table class="agreements-table">
+                    <thead>
+                        <tr>
+                            <th>Integrante</th>
+                            <th>Compromiso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Luis Adriano</td><td>Justificar faltas y participar activamente</td></tr>
+                        <tr><td>Chapoñan</td><td>Expresar preocupaciones respetuosamente</td></tr>
+                        <tr><td>Edwin</td><td>Coordinar trabajos</td></tr>
+                        <tr><td>Chaucas</td><td>Facilitar comunicación</td></tr>
+                        <tr><td>Todos</td><td>Cumplir normas claras</td></tr>
+                    </tbody>
+                </table>
+                <div class="quote">
+                    "Los conflictos son oportunidades para crecer y fortalecer relaciones con respeto y diálogo."
+                </div>
+            </section>
+        </div>
+        <footer>
+            <p>DPCCrea - Mediación, Diversidad y Aprendizaje</p>
+            <p>© Institución Educativa N7228 "Peruano Canadiense" - 5B</p>
+        </footer>
+    </div>
+    <div class="version">Versión 0.02</div>
+    <script>
+        const loader = document.getElementById('loader');
+        const progressBar = document.getElementById('progressBar');
+        const loaderMessages = document.getElementById('loaderMessages');
+        const statusText = document.querySelector('.loader-status');
+        const mainContent = document.getElementById('mainContent');
+        const systemMessages = [
+            {text: "> Conectando con servidor DPCCREA...", type: ""},
+            {text: "[OK] Conexión establecida", type: "success"},
+            {text: "> Cargando módulo de mediación...", type: ""},
+            {text: "[OK] Recursos de diversidad cargados", type: "success"},
+            {text: "> Verificando SEO...", type: ""},
+            {text: "[OK] Metaetiquetas optimizadas", type: "success"}
+        ];
+        let progress = 0;
+        let messageIndex = 0;
+        function updateProgress() {
+            if (progress < 100) {
+                progress += Math.random() * 5;
+                if (progress > 100) progress = 100;
+                progressBar.style.width = progress + '%';
+                if (messageIndex < systemMessages.length && progress >= (messageIndex + 1) * (100 / systemMessages.length)) {
+                    const msg = document.createElement('div');
+                    msg.className = `message ${systemMessages[messageIndex].type}`;
+                    msg.textContent = systemMessages[messageIndex].text;
+                    loaderMessages.appendChild(msg);
+                    loaderMessages.scrollTop = loaderMessages.scrollHeight;
+                    messageIndex++;
+                }
+                statusText.innerHTML = getStatusText(progress) + ' <span class="cursor">_</span>';
+                setTimeout(updateProgress, 100 + Math.random() * 200);
+            } else {
+                statusText.innerHTML = "Sistema listo <span class='cursor'>_</span>";
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                        mainContent.classList.remove('blur');
+                    }, 500);
+                }, 1000);
+            }
+        }
+        function getStatusText(progress) {
+            if (progress < 30) return "Inicializando núcleo de mediación...";
+            if (progress < 60) return "Cargando módulos de diversidad...";
+            if (progress < 90) return "Optimizando para SEO...";
+            return "Finalizando procesos...";
+        }
+        setTimeout(updateProgress, 1000);
+        const counterContainer = document.querySelector('#sfcwcwbjwc1qgqszpjapgf4ym5spfenubxc');
+        const counterScript = document.querySelector('script[src*="counter.js"]');
+        setTimeout(() => {
+            if (!counterContainer.innerHTML || counterContainer.innerHTML.includes('Cargando contador')) {
+                counterContainer.innerHTML = '<span class="counter-fallback">Contador no disponible</span>';
+            }
+            const links = counterContainer.querySelectorAll('a');
+            links.forEach(link => {
+                link.removeAttribute('href');
+                link.style.pointerEvents = 'none';
+                link.style.cursor = 'default';
+            });
+        }, 5000);
+        counterScript.onerror = () => {
+            counterContainer.innerHTML = '<span class="counter-fallback">Error al cargar contador</span>';
+        };
+        const matrixCanvas = document.getElementById('matrixCanvas');
+        const matrixCtx = matrixCanvas.getContext('2d');
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        const chars = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾁﾔﾖﾌﾝ★☆◆◇♠♣♥♦";
+        const fontSize = 20;
+        const columns = matrixCanvas.width / fontSize;
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * matrixCanvas.height);
+        }
+        function drawMatrix() {
+            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--hacker-cyan').trim();
+            matrixCtx.font = `bold ${fontSize}px monospace`;
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > matrixCanvas.height || Math.random() > 0.97) {
+                    drops[i] = 0;
+                }
+                drops[i] += 1.5;
+            }
+        }
+        setInterval(drawMatrix, 40);
+        const particlesCanvas = document.getElementById('particlesCanvas');
+        const particlesCtx = particlesCanvas.getContext('2d');
+        particlesCanvas.width = window.innerWidth;
+        particlesCanvas.height = window.innerHeight;
+        const particlesArray = [];
+        const particleCount = 50;
+        class Particle {
+            constructor() {
+                this.x = Math.random() * particlesCanvas.width;
+                this.y = Math.random() * particlesCanvas.height;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.05;
+                if (this.x < 0 || this.x > particlesCanvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > particlesCanvas.height) this.speedY *= -1;
+            }
+            draw() {
+                particlesCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--hacker-cyan').trim();
+                particlesCtx.beginPath();
+                particlesCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                particlesCtx.fill();
+            }
+        }
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+        function animateParticles() {
+            particlesCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            particlesCtx.fillRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                if (particlesArray[i].size <= 0.2) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                    particlesArray.push(new Particle());
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            if (navMenu.classList.contains('active')) {
+                hamburger.children[0].style.transform = 'rotate(45deg) translate(10px, 10px)';
+                hamburger.children[1].style.opacity = '0';
+                hamburger.children[2].style.transform = 'rotate(-45deg) translate(10px, -10px)';
+            } else {
+                hamburger.children[0].style.transform = 'none';
+                hamburger.children[1].style.opacity = '1';
+                hamburger.children[2].style.transform = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

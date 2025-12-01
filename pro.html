@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Contador con límite de 24h</title>
+</head>
+<body>
+
+<h2>Visitas: <span id="contador">0</span></h2>
+
+<script>
+const contadorElemento = document.getElementById("contador");
+
+// Simulamos una base de datos con localStorage (puedes cambiar por fetch a un servidor real)
+let visitas = localStorage.getItem("contadorTotal") || 0;
+
+// Revisar si ya sumó hoy
+let ultimaVisita = localStorage.getItem("ultimaVisita");
+let hoy = new Date().toDateString();
+
+if (ultimaVisita !== hoy) {
+    visitas++;
+    localStorage.setItem("contadorTotal", visitas);
+    localStorage.setItem("ultimaVisita", hoy);
+}
+
+// Mostrar contador
+contadorElemento.textContent = visitas;
+
+// Simular actualización automática cada 5 segundos (puedes cambiarlo)
+setInterval(() => {
+    contadorElemento.textContent = localStorage.getItem("contadorTotal");
+}, 5000);
+</script>
+
+</body>
+</html>

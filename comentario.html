@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPCCrea - Comentarios</title>
+    <meta name="description" content="Deja tus comentarios y comparte tus pensamientos sobre sexualidad, identidad y diversidad en un espacio seguro y respetuoso.">
+    <meta name="keywords" content="sexualidad, identidad, diversidad, comentarios, comunidad, educación sexual">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Comentarios - DPCCrea">
+    <meta property="og:description" content="Comparte tus opiniones y experiencias sobre sexualidad, identidad y diversidad en nuestra comunidad inclusiva.">
+    <meta property="og:image" content="https://dpccrea.com/assets/imagenes/og-image.jpg">
+    <meta property="og:url" content="https://dpccrea.com/comentario.html">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        :root {
+            --golden-main: #FFD700;
+            --golden-accent: #DAA520;
+            --inclusive-purple: #8A2BE2;
+            --dark-color: #000;
+            --neon-cyan: #00CED1;
+            --neon-pink: #FF69B4;
+            --hacker-cyan: #00ffcc;
+            --diversity-pink: #ff66c4;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark-color);
+            color: white;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+        .content {
+            transition: filter 0.5s ease;
+        }
+        .content.blur {
+            filter: blur(5px);
+        }
+        .matrix-bg, .particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .matrix-bg {
+            opacity: 0.4;
+        }
+        .particles-bg {
+            opacity: 0.5;
+        }
+        .hamburger {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #111;
+            border: 3px double var(--golden-main);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 0 20px var(--golden-accent);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px var(--golden-accent), 0 0 10px var(--golden-main); }
+            50% { box-shadow: 0 0 40px var(--golden-accent), 0 0 20px var(--golden-main); }
+            100% { box-shadow: 0 0 20px var(--golden-accent), 0 0 10px var(--golden-main); }
+        }
+        .hamburger:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--golden-accent), 0 0 20px var(--golden-main);
+        }
+        .hamburger div {
+            width: 30px;
+            height: 4px;
+            background: var(--golden-accent);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--golden-accent);
+        }
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border-left: 4px double var(--golden-accent);
+            padding-top: 120px;
+            animation: scan-nav 3s linear infinite;
+            overflow-x: hidden;
+        }
+        @keyframes scan-nav {
+            0% { border-left-color: var(--golden-accent); }
+            50% { border-left-color: var(--golden-main); }
+            100% { border-left-color: var(--golden-accent); }
+        }
+        nav.active {
+            right: 0;
+            box-shadow: -10px 0 20px var(--golden-accent);
+        }
+        nav .logo {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: 0 auto 20px;
+            border: 3px solid var(--golden-main);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--golden-accent);
+            transition: transform 0.3s ease;
+        }
+        nav .logo:hover {
+            transform: scale(1.05);
+        }
+        nav ul {
+            list-style: none;
+            width: 100%;
+        }
+        nav ul li {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.3s ease;
+        }
+        nav.active ul li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        nav ul li:nth-child(1) { transition-delay: 0.1s; }
+        nav ul li:nth-child(2) { transition-delay: 0.2s; }
+        nav ul li:nth-child(3) { transition-delay: 0.3s; }
+        nav ul li:nth-child(4) { transition-delay: 0.4s; }
+        nav ul li:nth-child(5) { transition-delay: 0.5s; }
+        nav ul li a {
+            color: var(--golden-main);
+            text-decoration: none;
+            display: block;
+            padding: 18px 35px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid #333;
+            background: rgba(218, 165, 32, 0.05);
+            transition: all 0.3s ease;
+        }
+        nav ul li a:hover {
+            background: rgba(218, 165, 32, 0.15);
+            padding-left: 45px;
+            text-shadow: 0 0 15px var(--golden-accent);
+            box-shadow: inset 0 0 10px var(--golden-accent);
+        }
+        header {
+            background: #000;
+            padding: 6rem 0;
+            text-align: center;
+            border-bottom: 4px solid var(--golden-accent);
+        }
+        h1 {
+            font-size: 4.5rem;
+            color: var(--golden-main);
+            text-shadow: 0 0 25px var(--golden-accent);
+            letter-spacing: 5px;
+            animation: glitch 1.5s linear infinite;
+        }
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -2px); }
+        }
+        .comment-section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        .comment-form {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--golden-main);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--golden-accent);
+        }
+        .comment-form h2 {
+            color: var(--golden-main);
+            text-shadow: 0 0 10px var(--golden-accent);
+            margin-bottom: 20px;
+        }
+        .comment-form input, .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #111;
+            border: 1px solid var(--golden-accent);
+            color: white;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        .comment-form textarea {
+            height: 100px;
+            resize: none;
+        }
+        .comment-form button {
+            background: var(--golden-accent);
+            border: 2px solid var(--golden-main);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        .comment-form button:hover {
+            background: var(--golden-main);
+            box-shadow: 0 0 15px var(--golden-accent);
+            transform: scale(1.05);
+        }
+        .comment-list {
+            margin-top: 2rem;
+        }
+        .comment {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--golden-main);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px var(--inclusive-purple);
+            position: relative;
+        }
+        .comment img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--hacker-cyan);
+            box-shadow: 0 0 10px var(--diversity-pink);
+            margin-right: 10px;
+            float: left;
+        }
+        .comment strong {
+            color: var(--golden-main);
+            text-shadow: 0 0 5px var(--golden-accent);
+        }
+        .comment p {
+            margin: 8px 0;
+            color: #ddd;
+        }
+        .comment .timestamp {
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+        }
+        .comment-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .comment-actions button {
+            background: transparent;
+            border: 1px solid var(--hacker-cyan);
+            color: var(--hacker-cyan);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .comment-actions button:hover {
+            background: var(--hacker-cyan);
+            color: #000;
+            box-shadow: 0 0 10px var(--diversity-pink);
+        }
+        .comment-actions .like-button.liked {
+            color: var(--diversity-pink);
+            border-color: var(--diversity-pink);
+        }
+        .comment-actions .like-button.liked:hover {
+            background: var(--diversity-pink);
+            color: #000;
+        }
+        .reply-form {
+            margin-top: 10px;
+            display: none;
+        }
+        .reply-form.active {
+            display: block;
+        }
+        .reply-form textarea {
+            width: 100%;
+            padding: 10px;
+            background: #111;
+            border: 1px solid var(--golden-accent);
+            color: white;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            height: 60px;
+            resize: none;
+        }
+        .reply-form button {
+            margin-top: 10px;
+            background: var(--golden-accent);
+            border: 2px solid var(--golden-main);
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .reply-form button:hover {
+            background: var(--golden-main);
+            box-shadow: 0 0 15px var(--golden-accent);
+        }
+        .replies {
+            margin-top: 10px;
+            padding-left: 20px;
+            display: none;
+        }
+        .replies.active {
+            display: block;
+        }
+        .reply {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--golden-accent);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px var(--inclusive-purple);
+        }
+        .reply img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid var(--hacker-cyan);
+            margin-right: 8px;
+            float: left;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--hacker-cyan);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 10000;
+            max-width: 300px;
+            box-shadow: 0 0 20px var(--hacker-cyan), 0 0 10px var(--diversity-pink);
+            font-family: 'Courier New', monospace;
+            animation: notifIn 0.5s ease-out;
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .notification img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--hacker-cyan);
+            box-shadow: 0 0 10px var(--diversity-pink);
+        }
+        .notification strong {
+            color: var(--hacker-cyan);
+        }
+        .notification p {
+            margin: 8px 0;
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+        @keyframes notifIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes notifOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        .profile-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--golden-main);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--golden-accent), 0 0 30px var(--inclusive-purple);
+            z-index: 10001;
+            text-align: center;
+            display: none;
+        }
+        .profile-popup.active {
+            display: block;
+        }
+        .profile-popup p {
+            margin-bottom: 20px;
+            color: var(--golden-main);
+            font-size: 1.2rem;
+        }
+        .profile-popup button {
+            background: var(--golden-accent);
+            border: 2px solid var(--golden-main);
+            color: #000;
+            padding: 10px 20px;
+            borderRadius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        .profile-popup button:hover {
+            background: var(--golden-main);
+            box-shadow: 0 0 15px var(--golden-accent);
+        }
+        .creator-badge {
+            animation: rgbGlow 3s infinite;
+            font-weight: bold;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        @keyframes rgbGlow {
+            0% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+            33% { color: #00ff00; text-shadow: 0 0 10px #00ff00; }
+            66% { color: #0000ff; text-shadow: 0 0 10px #0000ff; }
+            100% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            text-align: center;
+            border-top: 4px solid var(--golden-accent);
+            margin-top: 2rem;
+        }
+        footer a {
+            color: var(--golden-main);
+            text-decoration: none;
+            font-size: 1rem;
+            text-shadow: 0 0 10px var(--golden-accent);
+            margin: 0 15px;
+        }
+        footer a:hover {
+            text-shadow: 0 0 15px var(--golden-main);
+        }
+        footer .version {
+            color: var(--golden-main);
+            font-size: 0.9rem;
+            text-shadow: 0 0 10px var(--golden-accent);
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .hamburger {
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                right: 15px;
+            }
+            .hamburger div {
+                width: 25px;
+                height: 3px;
+                margin: 4px 0;
+            }
+            nav { width: 280px; }
+            nav .logo { width: 80px; height: 80px; }
+            .comment-section { padding: 0 10px; }
+            .notification { max-width: 250px; padding: 10px; }
+            .notification img { width: 30px; height: 30px; }
+            .comment img { width: 30px; height: 30px; }
+            footer a { font-size: 0.9rem; margin: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas" class="matrix-bg"></canvas>
+    <canvas id="particlesCanvas" class="particles-bg"></canvas>
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <nav id="navMenu">
+        <img src="assets/imagenes/logo.png" alt="DPCCrea Logo" class="logo">
+        <ul>
+            <li><a href="index.html">INICIO</a></li>
+            <li><a href="perfil.html">PERFIL</a></li>
+            <li><a href="comentario.html">COMENTARIO</a></li>
+            <li><a href="creadores.html">CREADORES</a></li>
+            <li><a href="campaña.html">CAMPAÑA</a></li>
+        </ul>
+    </nav>
+
+    <!-- Popup para redirigir al perfil -->
+    <div class="profile-popup" id="profilePopup">
+        <p>Debes configurar tu nombre en el perfil para comentar.</p>
+        <button id="goToProfile">Ir al Perfil</button>
+        <button id="cancelPopup">Cancelar</button>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>COMENTARIOS</h1>
+            <p style="margin-top: 1rem; color: var(--golden-accent); font-size: 1.5rem;">// Comparte tus pensamientos sobre diversidad e inclusión //</p>
+        </header>
+        <div class="comment-section">
+            <div class="comment-form">
+                <h2>DEJA TU COMENTARIO</h2>
+                <input type="text" id="nameInput" placeholder="Nombre (configura en tu perfil)" maxlength="30" readonly>
+                <textarea id="commentInput" placeholder="Escribe tu comentario..." maxlength="500"></textarea>
+                <button id="submitComment">ENVIAR</button>
+            </div>
+            <div class="comment-list" id="commentList">
+                <p style="color: var(--golden-accent); text-align: center;">Cargando comentarios...</p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <a href="terminos.html">TÉRMINOS Y CONDICIONES</a>
+        <div class="version">Versión 1.13</div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, doc, updateDoc, increment, setDoc, getDocs, where } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDp7VT6HMYBgqnrYfc84Tk9kh82nCBTYtM",
+            authDomain: "dpccrea-login.firebaseapp.com",
+            projectId: "dpccrea-login",
+            appId: "1:822726011803:web:6b8f3e6a9d8c7b2e8f4e5d"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const commentsCollection = collection(db, "comentarios");
+
+        // Variables globales
+        const nameInput = document.getElementById('nameInput');
+        const commentInput = document.getElementById('commentInput');
+        const submitComment = document.getElementById('submitComment');
+        const commentList = document.getElementById('commentList');
+        const profilePopup = document.getElementById('profilePopup');
+        const goToProfile = document.getElementById('goToProfile');
+        const cancelPopup = document.getElementById('cancelPopup');
+        
+        // Nombres de creadores (solo pueden ser usados una vez)
+        const creatorNames = ["L_Adriano", "SalchiHot"];
+        let usedCreatorNames = [];
+        
+        // Obtener datos del usuario desde localStorage
+        let currentUser = JSON.parse(localStorage.getItem('dpccrea_user')) || {};
+        
+        // Cargar nombres de creadores ya usados
+        const loadUsedCreatorNames = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "comentarios"));
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (creatorNames.includes(data.name)) {
+                        usedCreatorNames.push(data.name);
+                    }
+                });
+            } catch (error) {
+                console.error("❌ Error al cargar nombres de creadores:", error);
+            }
+        };
+        
+        // Configurar campo de nombre
+        const setupNameField = () => {
+            if (nameInput && currentUser.username) {
+                nameInput.value = currentUser.username;
+                nameInput.title = "Nombre configurado en tu perfil";
+            } else {
+                nameInput.value = "";
+                nameInput.placeholder = "Haz clic aquí para configurar tu nombre";
+                nameInput.addEventListener('click', showProfilePopup);
+            }
+        };
+
+        // Mostrar popup para ir al perfil
+        const showProfilePopup = () => {
+            profilePopup.classList.add('active');
+            document.querySelector('.content').classList.add('blur');
+        };
+
+        // Ocultar popup
+        const hideProfilePopup = () => {
+            profilePopup.classList.remove('active');
+            document.querySelector('.content').classList.remove('blur');
+        };
+
+        // Función para reproducir sonido de notificación
+        const playNotificationSound = () => {
+            try {
+                let audio = new Audio("https://assets.codepen.io/3011180/notification-sound-1.mp3");
+                audio.volume = 0.3;
+                audio.play().catch(err => console.error("❌ Error al reproducir sonido:", err));
+            } catch (error) {
+                console.error("❌ Error al crear audio:", error);
+            }
+        };
+
+        // Función para mostrar notificación
+        const showNotification = (name, message, profilePic) => {
+            let notification = document.createElement("div");
+            notification.className = "notification";
+            notification.innerHTML = `
+                <img src="${profilePic || currentUser.profilePic || 'https://via.placeholder.com/50'}" alt="Perfil">
+                <div>
+                    <strong style="color: var(--hacker-cyan);"><i class="fas fa-bell"></i> Nuevo comentario</strong>
+                    <p style="margin: 8px 0; color: #ddd; font-size: 0.9rem;">${name}: "${message.length > 50 ? message.substring(0, 47) + '...' : message}"</p>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Reproducir sonido
+            playNotificationSound();
+            
+            // Desaparecer después de 5 segundos
+            setTimeout(() => {
+                notification.style.animation = "notifOut 0.5s ease-out";
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        document.body.removeChild(notification);
+                    }
+                }, 500);
+            }, 5000);
+        };
+
+        // Función para crear un comentario en el DOM
+        const createCommentElement = (name, message, timestamp, id, likes, liked, profilePic) => {
+            let commentEl = document.createElement("div");
+            commentEl.className = "comment";
+            commentEl.dataset.id = id;
+            
+            const isCreator = creatorNames.includes(name);
+            
+            commentEl.innerHTML = `
+                <img src="${profilePic || currentUser.profilePic || 'https://via.placeholder.com/50'}" alt="Perfil">
+                <strong>${name || "Anónimo"} ${isCreator ? '<span class="creator-badge">[Creador]</span>' : ''}</strong>
+                <p>${message}</p>
+                <p class="timestamp">${new Date(timestamp).toLocaleString("es-ES", {dateStyle: "short", timeStyle: "short"})}</p>
+                <div class="comment-actions">
+                    <button class="like-button" data-id="${id}" data-liked="${liked ? "true" : "false"}">
+                        <i class="${liked ? "fas" : "far"} fa-heart"></i> <span>${likes || 0}</span>
+                    </button>
+                    <button class="reply-button" data-id="${id}">Responder</button>
+                    <button class="show-replies-button" data-id="${id}" style="display: none;">Ver respuestas</button>
+                </div>
+                <div class="reply-form" data-id="${id}">
+                    <textarea placeholder="Escribe tu respuesta..." maxlength="500"></textarea>
+                    <button>Enviar Respuesta</button>
+                </div>
+                <div class="replies" data-id="${id}"></div>
+            `;
+            
+            // Añadir evento al botón de like
+            commentEl.querySelector(".like-button").addEventListener("click", function() {
+                let commentId = this.dataset.id;
+                let isLiked = this.dataset.liked === "true";
+                
+                // Actualizar en Firebase
+                updateDoc(doc(db, "comentarios", commentId), {
+                    likes: increment(isLiked ? -1 : 1)
+                }).then(() => {
+                    this.dataset.liked = isLiked ? "false" : "true";
+                    this.classList.toggle("liked");
+                    
+                    let heartIcon = this.querySelector("i");
+                    let likesCount = this.querySelector("span");
+                    
+                    heartIcon.className = isLiked ? "far fa-heart" : "fas fa-heart";
+                    likesCount.textContent = isLiked ? (parseInt(likesCount.textContent) - 1) : (parseInt(likesCount.textContent) + 1);
+                    
+                    console.log(`❤️ Like ${isLiked ? "eliminado" : "agregado"} al comentario ${commentId}`);
+                }).catch(error => {
+                    console.error("❌ Error al actualizar like:", error);
+                });
+            });
+            
+            // Añadir evento al botón de responder
+            commentEl.querySelector(".reply-button").addEventListener("click", function() {
+                let commentId = this.dataset.id;
+                let replyForm = document.querySelector(`.reply-form[data-id="${commentId}"]`);
+                replyForm.classList.toggle("active");
+            });
+            
+            // Añadir evento al botón de enviar respuesta
+            commentEl.querySelector(".reply-form button").addEventListener("click", function() {
+                let commentId = this.parentElement.dataset.id;
+                let replyTextarea = this.parentElement.querySelector("textarea");
+                let replyText = replyTextarea.value.trim();
+                
+                if (replyText) {
+                    let replyName = currentUser.username || "Anónimo";
+                    let replyTimestamp = new Date().toISOString();
+                    
+                    // Crear elemento de respuesta
+                    let replyEl = document.createElement("div");
+                    replyEl.className = "reply";
+                    replyEl.innerHTML = `
+                        <img src="${currentUser.profilePic || 'https://via.placeholder.com/50'}" alt="Perfil">
+                        <strong>${replyName}</strong>
+                        <p>${replyText}</p>
+                        <p class="timestamp">${new Date(replyTimestamp).toLocaleString("es-ES", {dateStyle: "short", timeStyle: "short"})}</p>
+                    `;
+                    
+                    // Añadir respuesta al contenedor de respuestas
+                    let repliesContainer = document.querySelector(`.replies[data-id="${commentId}"]`);
+                    repliesContainer.appendChild(replyEl);
+                    
+                    // Mostrar el botón de ver respuestas
+                    let showRepliesButton = document.querySelector(`.show-replies-button[data-id="${commentId}"]`);
+                    showRepliesButton.style.display = "inline-block";
+                    
+                    // Limpiar textarea y ocultar formulario
+                    replyTextarea.value = "";
+                    this.parentElement.classList.remove("active");
+                    
+                    console.log(`💬 Respuesta enviada al comentario ${commentId}`);
+                }
+            });
+            
+            // Añadir evento al botón de mostrar/ocultar respuestas
+            commentEl.querySelector(".show-replies-button").addEventListener("click", function() {
+                let commentId = this.dataset.id;
+                let repliesContainer = document.querySelector(`.replies[data-id="${commentId}"]`);
+                repliesContainer.classList.toggle("active");
+                
+                this.textContent = repliesContainer.classList.contains("active") ? "Ocultar respuestas" : "Ver respuestas";
+            });
+            
+            return commentEl;
+        };
+
+        // Función para enviar comentario
+        const submitCommentHandler = () => {
+            let name = currentUser.username || "Anónimo";
+            let message = commentInput.value.trim();
+            
+            if (!currentUser.username) {
+                showProfilePopup();
+                return;
+            }
+            
+            if (!message) {
+                alert("Por favor, escribe un comentario.");
+                return;
+            }
+            
+            // Verificar si el nombre es de creador y ya está en uso
+            if (creatorNames.includes(name) && usedCreatorNames.includes(name)) {
+                alert("Este nombre de creador ya está en uso. Por favor, elige otro nombre en tu perfil.");
+                showProfilePopup();
+                return;
+            }
+            
+            submitComment.disabled = true;
+            
+            let timestamp = new Date().toISOString();
+            
+            // Enviar a Firebase
+            addDoc(commentsCollection, {
+                name: name,
+                message: message,
+                timestamp: timestamp,
+                likes: 0,
+                profilePic: currentUser.profilePic || 'https://via.placeholder.com/50'
+            }).then(() => {
+                commentInput.value = "";
+                submitComment.disabled = false;
+                console.log("💬 Comentario enviado:", name);
+                
+                // Si es un nombre de creador, agregarlo a la lista de usados
+                if (creatorNames.includes(name) && !usedCreatorNames.includes(name)) {
+                    usedCreatorNames.push(name);
+                }
+            }).catch(error => {
+                console.error("❌ Error al enviar comentario:", error);
+                alert("Error al enviar el comentario. Intenta de nuevo.");
+                submitComment.disabled = false;
+            });
+        };
+
+        // Cargar comentarios existentes
+        const loadComments = () => {
+            let loadedCommentIds = new Set();
+            
+            // Consulta para obtener comentarios ordenados por fecha (más recientes primero)
+            const q = query(commentsCollection, orderBy("timestamp", "desc"));
+            
+            onSnapshot(q, (snapshot) => {
+                // Limpiar mensaje de carga
+                if (commentList.querySelector('p')) {
+                    commentList.innerHTML = '';
+                }
+                
+                // Procesar todos los documentos existentes primero
+                snapshot.forEach((doc) => {
+                    let data = doc.data();
+                    
+                    if (!loadedCommentIds.has(doc.id)) {
+                        loadedCommentIds.add(doc.id);
+                        
+                        // Crear elemento de comentario
+                        let commentEl = createCommentElement(
+                            data.name,
+                            data.message,
+                            data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp),
+                            doc.id,
+                            data.likes || 0,
+                            false,
+                            data.profilePic
+                        );
+                        
+                        // Añadir comentario a la lista
+                        commentList.appendChild(commentEl);
+                    }
+                });
+                
+                // Escuchar cambios en tiempo real
+                snapshot.docChanges().forEach((change) => {
+                    if (change.type === "added") {
+                        let doc = change.doc;
+                        let data = doc.data();
+                        
+                        if (!loadedCommentIds.has(doc.id)) {
+                            loadedCommentIds.add(doc.id);
+                            
+                            // Mostrar notificación si no es el usuario actual
+                            if (data.name !== currentUser.username) {
+                                showNotification(data.name, data.message, data.profilePic);
+                            }
+                        }
+                    }
+                });
+            }, (error) => {
+                console.error("❌ Error al cargar comentarios:", error);
+                commentList.innerHTML = '<p style="color: var(--neon-pink); text-align: center;">Error al cargar comentarios. Intenta recargar la página.</p>';
+            });
+        };
+
+        // Inicializar
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Cargar nombres de creadores ya usados
+            await loadUsedCreatorNames();
+            
+            // Configurar campo de nombre
+            setupNameField();
+            
+            // Añadir evento al botón de enviar comentario
+            if (submitComment) {
+                submitComment.addEventListener("click", submitCommentHandler);
+            }
+            
+            // Añadir evento al campo de comentario para enviar con Enter
+            if (commentInput) {
+                commentInput.addEventListener("keypress", (e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        submitCommentHandler();
+                    }
+                });
+            }
+            
+            // Añadir eventos a los botones del popup
+            if (goToProfile) {
+                goToProfile.addEventListener("click", () => {
+                    window.location.href = "perfil.html";
+                });
+            }
+            
+            if (cancelPopup) {
+                cancelPopup.addEventListener("click", hideProfilePopup);
+            }
+            
+            // Cargar comentarios
+            loadComments();
+        });
+    </script>
+    <script>
+        // Efectos visuales de fondo
+        const matrixCanvas = document.getElementById('matrixCanvas');
+        const matrixCtx = matrixCanvas.getContext('2d');
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        const chars = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾁﾔﾖﾌﾝ★☆◆◇♠♣♥♦";
+        const fontSize = 20;
+        const columns = matrixCanvas.width / fontSize;
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * matrixCanvas.height);
+        }
+        
+        function drawMatrix() {
+            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--golden-accent').trim();
+            matrixCtx.font = `bold ${fontSize}px monospace`;
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > matrixCanvas.height || Math.random() > 0.97) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 40);
+        
+        const particlesCanvas = document.getElementById('particlesCanvas');
+        const particlesCtx = particlesCanvas.getContext('2d');
+        particlesCanvas.width = window.innerWidth;
+        particlesCanvas.height = window.innerHeight;
+        const particlesArray = [];
+        const particleCount = 50;
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * particlesCanvas.width;
+                this.y = Math.random() * particlesCanvas.height;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.05;
+                if (this.x < 0 || this.x > particlesCanvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > particlesCanvas.height) this.speedY *= -1;
+            }
+            draw() {
+                particlesCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--golden-accent').trim();
+                particlesCtx.beginPath();
+                particlesCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                particlesCtx.fill();
+            }
+        }
+        
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+        
+        function animateParticles() {
+            particlesCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            particlesCtx.fillRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                if (particlesArray[i].size <= 0.2) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                    particlesArray.push(new Particle());
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        
+        initParticles();
+        animateParticles();
+        
+        // Menú hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        // Ajustar canvas al redimensionar
+        window.addEventListener('resize', () => {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+            particlesCanvas.width = window.innerWidth;
+            particlesCanvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
