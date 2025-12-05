@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPCCrea - Sexualidad y Mediación</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <style>
+        @font-face { font-family: 'FrasesPersonalizada'; src: url('assets/fonts/frases/Small Cake.otf') format('opentype'); font-display: swap; }
+        @font-face { font-family: 'NombresPersonalizada'; src: url('assets/fonts/nombre/Jumps Winter.otf') format('opentype'); font-display: swap; }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a2e, #16213e);
+            color: white;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* ===== NAV MENU ===== */
+        .nav-container {
+            position: fixed; 
+            top:0; 
+            left:0; 
+            width:100%; 
+            background:rgba(0,0,0,0.95); 
+            backdrop-filter:blur(15px);
+            z-index:1000; 
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            padding:1rem 2rem;
+        }
+        .nav-container::after {
+            content:''; 
+            position:absolute; 
+            bottom:0; 
+            left:0; 
+            width:100%; 
+            height:2px;
+            background:linear-gradient(90deg,#00fffc,#fc00ff,#fffc00,#00fffc); 
+            background-size:300%; 
+            animation:rgbFlow 3s linear infinite;
+        }
+        @keyframes rgbFlow { 0%{background-position:0%} 100%{background-position:300%} }
+
+        .typewriter-nav {
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            background: linear-gradient(90deg, #00fffc, #fc00ff, #fffc00);
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            color: transparent; 
+            text-transform: uppercase;
+            font-family: 'NombresPersonalizada', sans-serif;
+            min-height: 30px;
+            min-width: 150px;
+        }
+        .typewriter-nav-text {
+            border-right: 2px solid #00fffc;
+            padding-right: 3px;
+            animation: blink 0.7s infinite;
+        }
+
+        .menu-toggle { 
+            background: linear-gradient(45deg, #00fffc, #fc00ff); 
+            border: none; 
+            cursor: pointer; 
+            padding: 12px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0,255,252,0.3); 
+            transition: all .3s; 
+        }
+        .menu-toggle:hover { transform: scale(1.1); }
+        .hamburger span { 
+            display: block; 
+            height: 2px; 
+            width: 25px; 
+            background: white; 
+            margin: 5px 0; 
+            transition: all .4s cubic-bezier(0.68,-0.55,0.265,1.55); 
+        }
+        .menu-toggle.active .hamburger span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        .menu-toggle.active .hamburger span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active .hamburger span:nth-child(3) { transform: rotate(-45deg) translate(7px,-6px); }
+
+        .nav-menu {
+            position: fixed; 
+            top: 0; 
+            right: -100%; 
+            width: 320px; 
+            height: 100vh; 
+            background: rgba(10,10,20,0.98);
+            backdrop-filter: blur(20px); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            transition: all .5s cubic-bezier(0.68,-0.55,0.265,1.55); 
+            border-left: 3px solid; 
+            border-image: linear-gradient(#00fffc,#fc00ff) 1;
+            z-index: 1001;
+        }
+        .nav-menu.active { right: 0; }
+        .nav-item {
+            padding: 1.5rem 3rem; 
+            font-size: 1.4rem; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            width: 100%; 
+            text-align: center;
+            background: rgba(255,255,255,0.05); 
+            border-radius: 10px; 
+            margin: 0.5rem 0; 
+            font-family: 'NombresPersonalizada', sans-serif;
+            color: #00fffc;
+            transition: all 0.3s ease;
+        }
+        .nav-item:hover { 
+            background: rgba(0,255,252,0.15); 
+            transform: translateX(-10px); 
+            color: white;
+        }
+
+        .menu-overlay {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.7); 
+            backdrop-filter: blur(10px);
+            z-index: 999; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: all .4s;
+        }
+        .menu-overlay.active { opacity: 1; visibility: visible; }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+            position: relative;
+            z-index: 1;
+        }
+        .glitch {
+            font-size: 8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+            font-family: 'NombresPersonalizada', sans-serif;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff; }
+            15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff; }
+            16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff; }
+            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff; }
+            50% { text-shadow: 0.05em 0.05em 0 #00fffc, 0em 0em 0 #fc00ff; }
+            99% { text-shadow: 0.05em 0.05em 0 #00fffc, 0em 0em 0 #fc00ff; }
+            100% { text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff; }
+        }
+
+        .typewriter-container { height: 80px; margin: 2rem 0; }
+        .typewriter { font-size: 2rem; letter-spacing: 3px; font-family: 'FrasesPersonalizada', sans-serif; }
+        .typewriter-text { border-right: 3px solid #00fffc; padding-right: 5px; animation: blink 0.7s infinite; }
+        @keyframes blink { 0%,100% { border-color:#00fffc; } 50% { border-color:transparent; } }
+
+        /* ===== CONTENIDO PRINCIPAL ===== */
+        .content-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3.5rem; 
+            margin-bottom: 3rem; 
+            font-family: 'NombresPersonalizada', sans-serif; 
+            color: #00fffc;
+            position: relative;
+            text-align: center;
+        }
+        .section-title::after {
+            content: ''; 
+            position: absolute; 
+            bottom: -10px; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width: 120px; 
+            height: 4px; 
+            background: linear-gradient(90deg, #00fffc, #fc00ff);
+        }
+
+        .content-box {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00fffc;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 0 20px rgba(0, 255, 252, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 252, 0.4);
+        }
+
+        .content-box h3 {
+            color: #00fffc;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-family: 'NombresPersonalizada', sans-serif;
+            border-left: 4px solid #fc00ff;
+            padding-left: 15px;
+        }
+
+        .content-box p {
+            color: #ddd;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+
+        .content-box ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .content-box li {
+            color: #ddd;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .content-box li:before {
+            content: '▶';
+            color: #fc00ff;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .highlight {
+            color: #00fffc;
+            font-weight: bold;
+        }
+
+        /* ===== GALERÍA DE AFICHES ===== */
+        .gallery-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00fffc;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 252, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 2px solid #00fffc;
+        }
+
+        .gallery-item p {
+            padding: 1.5rem;
+            color: #ddd;
+            font-size: 1.1rem;
+        }
+
+        /* ===== TABLA DE DESARROLLADORES ===== */
+        .developers-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .developers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .developer-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00fffc;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .developer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px rgba(0, 255, 252, 0.4);
+            border-color: #fc00ff;
+        }
+
+        .developer-number {
+            display: inline-block;
+            background: linear-gradient(45deg, #00fffc, #fc00ff);
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .developer-card h4 {
+            color: #00fffc;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-family: 'NombresPersonalizada', sans-serif;
+        }
+
+        .developer-card p {
+            color: #ddd;
+            font-size: 1.1rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer { 
+            background: rgba(0,0,0,0.9); 
+            padding: 3rem 2rem; 
+            text-align: center; 
+            font-family: 'FrasesPersonalizada', sans-serif; 
+            border-top: 2px solid #00fffc;
+            margin-top: 3rem;
+        }
+        footer p {
+            margin: 10px 0;
+            color: #ccc;
+        }
+        footer a {
+            color: #00fffc;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #fc00ff;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .glitch { font-size: 4rem; }
+            .nav-container { padding: 0.8rem 1rem; }
+            .typewriter-nav { font-size: 1rem; min-width: 120px; }
+            .section-title { font-size: 2.5rem; }
+            .content-section, .gallery-section, .developers-section { 
+                padding: 2rem 1rem; 
+            }
+            .content-box {
+                padding: 1.5rem;
+            }
+            .content-box h3 {
+                font-size: 1.5rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item img {
+                height: 250px;
+            }
+            .typewriter { font-size: 1.5rem; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body tabindex="0">
+    <!-- NAV MENU -->
+    <div class="nav-container">
+        <div class="typewriter-nav">
+            <span class="typewriter-nav-text" id="navTypewriter"></span>
+        </div>
+        <button class="menu-toggle" id="menuToggle">
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+        <nav class="nav-menu" id="navMenu">
+            <img src="assets/imagenes/logo.png" alt="DPCCrea Logo" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid #00fffc; margin-bottom: 20px;">
+            <div class="nav-item" onclick="location.href='index.html'">INICIO</div>
+            <div class="nav-item" onclick="location.href='sexualidad.html'">SEXUALIDAD</div>
+            <div class="nav-item" onclick="location.href='mediacion.html'">MEDIACIÓN</div>
+            <div class="nav-item" onclick="location.href='creadores.html'">CREADORES</div>
+        </nav>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="content" id="mainContent">
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1 class="glitch">SEXUALIDAD</h1>
+            <div class="typewriter-container">
+                <div class="typewriter"><span class="typewriter-text" id="typewriter"></span></div>
+            </div>
+            <button class="btn" onclick="document.querySelector('.content-section').scrollIntoView({behavior:'smooth'})" style="
+                padding: 1.2rem 3rem;
+                background: linear-gradient(45deg, #00fffc, #fc00ff);
+                border: none; 
+                border-radius: 50px; 
+                color: white; 
+                font-weight: bold; 
+                text-transform: uppercase;
+                font-family: 'NombresPersonalizada', sans-serif; 
+                cursor: pointer; 
+                transition: all .3s;
+                margin-top: 2rem;
+                font-size: 1.1rem;
+            ">EXPLORAR CONTENIDO</button>
+        </section>
+
+        <!-- SECCIÓN 1: ¿QUÉ ES LA SEXUALIDAD? -->
+        <section class="content-section fade-in">
+            <h2 class="section-title">¿QUÉ ES LA SEXUALIDAD?</h2>
+            
+            <div class="content-box">
+                <h3>DEFINICIÓN COMPLETA</h3>
+                <p>La sexualidad es una parte fundamental de cada ser humano, y va mucho más allá del acto sexual. Incluye aspectos emocionales, físicos, sociales y culturales que influyen en cómo sentimos, pensamos y actuamos en relación con nuestro cuerpo, nuestras relaciones y nuestra identidad.</p>
+                
+                <h3 style="margin-top: 2rem;">DERECHOS Y RESPONSABILIDADES</h3>
+                <p>Cada persona tiene derecho a decidir sobre su cuerpo, establecer límites y exigir que se respeten. El consentimiento es un acuerdo libre, informado y entusiasta que puede cambiar en cualquier momento, y es esencial en cualquier relación física o afectiva. Aprender a decir "sí" o "no" con claridad, y a respetar esas decisiones en los demás, es fundamental para convivir de forma saludable y segura.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: SALUD SEXUAL DEL ADOLESCENTE -->
+        <section class="content-section fade-in">
+            <h2 class="section-title">SALUD SEXUAL DEL ADOLESCENTE</h2>
+            
+            <div class="content-box">
+                <h3>EL CAMBIO DURANTE LA PUBERTAD</h3>
+                <p>A medida que tu cuerpo cambia durante la pubertad, también cambia tu forma de pensar, sentir e interactuar con los demás. Es posible que tengas nuevos sentimientos y pensamientos sobre el sexo. Comprender en quién te estás convirtiendo como un adulto joven sexual también es parte de la salud sexual de los adolescentes.</p>
+                
+                <h3 style="margin-top: 2rem;">COMO EXPRESAMOS LA SEXUALIDAD DE MANERA CORRECTA</h3>
+                <p>Expresar la sexualidad de forma adecuada es hacerlo de manera responsable, respetuosa, con libertad personal y teniendo en cuenta a las demás personas. A continuación, algunos aspectos importantes:</p>
+                
+                <ul>
+                    <li><span class="highlight">Conocimiento de sí mismo:</span> Conocerte a ti mismo, tus sentimientos, tus deseos, tus límites y tus valores. Sentirte bien en tu cuerpo y como persona con una identidad sexual y género.</li>
+                    
+                    <li><span class="highlight">Consentimiento:</span> La expresión de la sexualidad tiene que ser consensuada entre personas adultas capaces de tomar decisiones por sí mismas. Hay que expresar el consentimiento de forma clara, libre y puede retirarse en cualquier momento.</li>
+                    
+                    <li><span class="highlight">Respeto:</span> Hay que respetar los límites, los deseos y las identidades de las demás personas. No hay que imponer nuestras ideas, deseos y creencias en relación a la sexualidad a los demás.</li>
+                    
+                    <li><span class="highlight">Comunicación:</span> Hablar de una forma abierta y sincera con nuestra pareja o nuestro entorno sobre lo que sentimos, lo que deseamos, lo que nos gustaría y aprendiendo a escuchar sin juzgar.</li>
+                    
+                    <li><span class="highlight">Responsabilidad:</span> Usar métodos anticonceptivos y de protección que eviten embarazos no deseados e infecciones de transmisión sexual. Ser consciente de las consecuencias emocionales que conlleva la sexualidad que practiques.</li>
+                    
+                    <li><span class="highlight">Educación:</span> Buscar información y educación de calidad en relación con la sexualidad y la salud sexual y las relaciones. Romper mitos o tabúes a partir del conocimiento.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: GALERÍA DE AFICHES -->
+        <section class="gallery-section fade-in">
+            <h2 class="section-title">AFICHES CREATIVOS</h2>
+            <p style="color: #ccc; font-size: 1.2rem; margin-bottom: 3rem;">
+                Como una de las actividades para hacer reflexionar a los estudiantes, se hicieron dos afiches muy creativos
+            </p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="assets/afiche/1.png" alt="Afiche Creativo 1" onerror="this.src='https://picsum.photos/400/300?random=1&grayscale'">
+                    <p>Afiche creativo sobre sexualidad responsable</p>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="assets/afiche/2.png" alt="Afiche Creativo 2" onerror="this.src='https://picsum.photos/400/300?random=2&grayscale'">
+                    <p>Afiche sobre respeto y consentimiento</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: LAS CAUSAS -->
+        <section class="content-section fade-in">
+            <h2 class="section-title">LAS CAUSAS</h2>
+            
+            <div class="content-box">
+                <h3>PROBLEMAS IDENTIFICADOS</h3>
+                
+                <ul>
+                    <li><span class="highlight">Dibujos de órganos sexuales en las carpetas:</span> La presencia de dibujos inapropiados en las carpetas de algunos estudiantes genera un ambiente de incomodidad y falta de respeto. Lo que ocasiona problemas de comunicación de algunos estudiantes por la incomodidad y también por la falta de madurez de sus compañeros.</li>
+                    
+                    <li><span class="highlight">Falta de orientación sobre el respeto y la privacidad:</span> La conducta de algunos estudiantes refleja una falta de orientación sobre el respeto por los demás, la privacidad y la expresión adecuada de la sexualidad en espacios educativos.</li>
+                    
+                    <li><span class="highlight">Afectación del estado emocional de los estudiantes:</span> La exposición repetida a estos dibujos puede provocar sentimientos de vergüenza, ansiedad, inseguridad o rechazo, afectando la convivencia escolar y el desarrollo emocional de los estudiantes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: MEDIACIÓN -->
+        <section class="content-section fade-in">
+            <h2 class="section-title">ABORDANDO CON MEDIACIÓN</h2>
+            
+            <div class="content-box">
+                <h3>ENFOQUE DE MEDIACIÓN</h3>
+                <p>Abordamos la sexualidad con la mediación a través de:</p>
+                
+                <ul>
+                    <li><span class="highlight">Gestión Emocional:</span> Reconocer y gestionar nuestras emociones para tomar decisiones saludables y respetuosas.</li>
+                    
+                    <li><span class="highlight">Respeto y Empatía:</span> Respetar los límites y decisiones de los demás, y ser empáticos con sus necesidades y emociones.</li>
+                </ul>
+                
+                <h3 style="margin-top: 2rem;">DE QUÉ MANERA SE APLICA LA MEDIACIÓN EN NUESTRO PROYECTO PARTICIPATIVO</h3>
+                <p>La mediación es un proceso que aplicamos en nuestro proyecto para fomentar la regulación emocional y el uso de valores como el respeto y la tolerancia. Este enfoque busca restaurar el daño causado a la víctima y encontrar soluciones conjuntas entre las partes involucradas, asumiendo ambas su responsabilidad en el conflicto.</p>
+                
+                <p>En el contexto de nuestro proyecto de página web, la mediación se utilizó para coordinar el trabajo en equipo de manera efectiva. Sin embargo, su aplicación va más allá del ámbito laboral, siendo especialmente útil en situaciones de conflicto entre compañeros, como cuando se producen dibujos de órganos sexuales con intención de ofender.</p>
+                
+                <p>La mediación en estos casos implica un diálogo entre la víctima y el victimario, donde se discuten las inquietudes y se busca una solución conjunta. Es fundamental que el victimario reconozca su responsabilidad y se comprometa a no repetir sus acciones, comprendiendo el daño causado.</p>
+                
+                <p>El objetivo final de este proyecto es que los estudiantes desarrollen la capacidad de reconocer cuándo sus acciones, como dibujar órganos sexuales con intención de ofender, pueden ser perjudiciales y aprendan a evitarlas. A través de la mediación, buscamos promover un ambiente más respetuoso y tolerante, donde los estudiantes puedan crecer tanto académica como personalmente.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 6: DESARROLLADORES -->
+        <section class="developers-section fade-in">
+            <h2 class="section-title">DESARROLLADORES</h2>
+            
+            <div class="developers-grid">
+                <div class="developer-card">
+                    <div class="developer-number">1</div>
+                    <h4>MELANY ARTICA</h4>
+                    <p> </p>
+                </div>
+                
+                <div class="developer-card">
+                    <div class="developer-number">2</div>
+                    <h4>LYNNA CÁRDENAS</h4>
+                    <p> </p>
+                </div>
+                
+                <div class="developer-card">
+                    <div class="developer-number">3</div>
+                    <h4>JOSE LUIS QUISPE</h4>
+                    <p> </p>
+                </div>
+                
+                <div class="developer-card">
+                    <div class="developer-number">4</div>
+                    <h4>JAMES LIÑAN</h4>
+                    <p> </p>
+                </div>
+                
+                <div class="developer-card">
+                    <div class="developer-number">5</div>
+                    <h4>ROGER BARTUREN</h4>
+                    <p> </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 DPCCREA - Educación en Sexualidad y Mediación</p>
+        <p>Proyecto Participativo - Todos los derechos reservados</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            <a href="index.html">Inicio</a>
+            <span style="color: #fc00ff; margin: 0 10px;">|</span>
+            <a href="sexualidad.html">Sexualidad</a>
+            <span style="color: #fc00ff; margin: 0 10px;">|</span>
+            <a href="mediacion.html">Mediación</a>
+        </p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // TYPEWRITER CLASS
+        class TypeWriter {
+            constructor(el, phrases, speed=90, del=40, pause=2000) {
+                this.el = el;
+                this.phrases = phrases;
+                this.speed = speed;
+                this.del = del;
+                this.pause = pause;
+                this.i = 0;
+                this.j = 0;
+                this.deleting = false;
+                this.type();
+            }
+            type() {
+                const full = this.phrases[this.i];
+                this.el.textContent = this.deleting ? full.substring(0, this.j--) : full.substring(0, this.j++);
+                if (!this.deleting && this.j === full.length) {
+                    setTimeout(() => this.deleting = true, this.pause);
+                } else if (this.deleting && this.j === 0) {
+                    this.deleting = false;
+                    this.i = (this.i + 1) % this.phrases.length;
+                }
+                setTimeout(() => this.type(), this.deleting ? this.del : this.speed);
+            }
+        }
+
+        // MENÚ HAMBURGUESA
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        });
+        
+        menuOverlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        });
+
+        // INICIALIZAR TODO
+        document.addEventListener('DOMContentLoaded', () => {
+            // Typewriter del hero
+            const heroTexts = [
+                "Educación sexual integral...",
+                "Respeto y consentimiento...",
+                "Mediación escolar...",
+                "Salud sexual adolescente..."
+            ];
+            new TypeWriter(document.getElementById('typewriter'), heroTexts);
+            
+            // Typewriter del nav
+            const navTexts = [
+                "SEXUALIDAD",
+                "EDUCACIÓN",
+                "RESPETO",
+                "CONSENTIMIENTO",
+                "MEDIACIÓN"
+            ];
+            new TypeWriter(document.getElementById('navTypewriter'), navTexts, 100, 50, 1500);
+            
+            // Botón del hero
+            const heroBtn = document.querySelector('.btn');
+            heroBtn.addEventListener('click', () => {
+                document.querySelector('.content-section').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+            
+            // Animación de elementos al hacer scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observar todas las secciones
+            document.querySelectorAll('.content-section, .gallery-section, .developers-section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Mensaje de bienvenida en consola
+            console.log('%c📚 DPCCREA Sexualidad - Contenido educativo', 'color: #00fffc; font-size: 16px; font-weight: bold;');
+            console.log('%c• Educación sexual integral • Mediación escolar • Desarrollo personal', 'color: #fc00ff;');
+        });
+    </script>
+</body>
+</html>
