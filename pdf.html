@@ -4,779 +4,296 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DPCCrea - Diapositivas Canva</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
     <style>
-        /* === ESTILOS HACKER ÉPICOS === */
-        :root {
-            --hacker-green: #00ff41;
-            --hacker-cyan: #00f7ff;
-            --dark-color: #000;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', monospace;
-        }
-        
-        body {
-            background-color: var(--dark-color);
+        @font-face { font-family: 'FrasesPersonalizada'; src: url('assets/fonts/frases/Small Cake.otf') format('opentype'); font-display: swap; }
+        @font-face { font-family: 'NombresPersonalizada'; src: url('assets/fonts/nombre/Jumps Winter.otf') format('opentype'); font-display: swap; }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a2e, #16213e);
             color: white;
             overflow-x: hidden;
-        }
-        
-        /* === PANTALLA DE CARGA HACKER PRO === */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .loader-content {
-            position: relative;
-            width: 80%;
-            max-width: 600px;
-            border: 3px double var(--hacker-green);
-            padding: 30px;
-            box-shadow: 0 0 30px var(--hacker-cyan), 0 0 50px var(--hacker-green);
-            background: rgba(0, 0, 0, 0.85);
-            animation: scanline 4s linear infinite;
-        }
-        
-        @keyframes scanline {
-            0% { box-shadow: 0 0 30px var(--hacker-cyan), 0 0 50px var(--hacker-green); }
-            50% { box-shadow: 0 0 50px var(--hacker-cyan), 0 0 30px var(--hacker-green); }
-            100% { box-shadow: 0 0 30px var(--hacker-cyan), 0 0 50px var(--hacker-green); }
-        }
-        
-        .loader-header {
-            color: var(--hacker-cyan);
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2rem;
-            text-shadow: 0 0 15px var(--hacker-cyan);
-            animation: type 2s steps(20) infinite;
-        }
-        
-        @keyframes type {
-            0%, 100% { width: 0; }
-            50% { width: 100%; }
-        }
-        
-        .loader-status {
-            color: var(--hacker-green);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-        
-        .progress-container {
-            width: 100%;
-            height: 20px;
-            background: #111;
-            border: 1px solid var(--hacker-cyan);
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(90deg, #003b00, var(--hacker-green), var(--hacker-cyan));
-            transition: width 0.3s;
-        }
-        
-        .loader-messages {
-            height: 120px;
-            overflow-y: auto;
-            border: 1px solid #333;
-            padding: 10px;
-            margin-bottom: 20px;
-            background: #000;
-        }
-        
-        .message {
-            color: var(--hacker-green);
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .message.success {
-            color: #00ff00;
-        }
-        
-        .message.error {
-            color: #ff0000;
-        }
-        
-        .message.warning {
-            color: #ffff00;
-        }
-        
-        .loader-footer {
-            color: var(--hacker-cyan);
-            text-align: center;
-            font-size: 0.8rem;
-            text-shadow: 0 0 10px var(--hacker-cyan);
-        }
-        
-        .cursor {
-            animation: blink 0.7s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
+            font-family: 'Segoe UI', sans-serif;
         }
 
-        /* === FONDO MATRIX Y PARTÍCULAS === */
-        .matrix-bg, .particles-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+        /* NAV MENU */
+        .nav-container { position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.95);backdrop-filter:blur(15px);z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem; }
+        .nav-container::after { content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,#00fffc,#fc00ff,#fffc00,#00fffc);background-size:300%;animation:rgbFlow 3s linear infinite; }
+        @keyframes rgbFlow { 0%{background-position:0%} 100%{background-position:300%} }
+
+        .typewriter-nav { font-size:1.3rem;font-weight:bold;background:linear-gradient(90deg,#00fffc,#fc00ff,#fffc00);-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;font-family:'NombresPersonalizada',sans-serif;min-height:30px;min-width:150px; }
+        .typewriter-nav-text { border-right:2px solid #00fffc;padding-right:3px;animation:blink 0.7s infinite; }
+
+        .menu-toggle { background:linear-gradient(45deg,#00fffc,#fc00ff);border:none;cursor:pointer;padding:12px;border-radius:8px;box-shadow:0 0 10px rgba(0,255,252,0.3);transition:all .3s; }
+        .menu-toggle:hover { transform:scale(1.1); }
+        .hamburger span { display:block;height:2px;width:25px;background:white;margin:5px 0;transition:all .4s cubic-bezier(0.68,-0.55,0.265,1.55); }
+        .menu-toggle.active .hamburger span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+        .menu-toggle.active .hamburger span:nth-child(2) { opacity:0; }
+        .menu-toggle.active .hamburger span:nth-child(3) { transform:rotate(-45deg) translate(7px,-6px); }
+
+        .nav-menu { position:fixed;top:0;right:-100%;width:320px;height:100vh;background:rgba(10,10,20,0.98);backdrop-filter:blur(20px);display:flex;flex-direction:column;justify-content:center;align-items:center;transition:all .5s cubic-bezier(0.68,-0.55,0.265,1.55);border-left:3px solid;border-image:linear-gradient(#00fffc,#fc00ff) 1;z-index:1001; }
+        .nav-menu.active { right:0; }
+        .nav-item { padding:1.5rem 3rem;font-size:1.4rem;text-transform:uppercase;cursor:pointer;width:100%;text-align:center;background:rgba(255,255,255,0.05);border-radius:10px;margin:0.5rem 0;font-family:'NombresPersonalizada',sans-serif;color:#00fffc;transition:all .3s ease; }
+        .nav-item:hover { background:rgba(0,255,252,0.15);transform:translateX(-10px);color:white; }
+
+        .menu-overlay { position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);z-index:999;opacity:0;visibility:hidden;transition:all .4s; }
+        .menu-overlay.active { opacity:1;visibility:visible; }
+
+        /* HERO */
+        .hero { height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:80px;position:relative;z-index:1; }
+        .glitch { font-size:8rem;font-weight:900;text-transform:uppercase;text-shadow:0.05em 0 0 #00fffc,-0.03em -0.04em 0 #fc00ff,0.025em 0.04em 0 #fffc00;animation:glitch 725ms infinite;font-family:'NombresPersonalizada',sans-serif; }
+        @keyframes glitch { 0%,15%,100% { text-shadow:0.05em 0 0 #00fffc,-0.03em -0.04em 0 #fc00ff; } 16%,49% { text-shadow:-0.05em -0.025em 0 #00fffc,0.025em 0.035em 0 #fc00ff; } 50%,99% { text-shadow:0.05em 0.05em 0 #00fffc,0em 0em 0 #fc00ff; } }
+
+        .typewriter-container { height:80px;margin:2rem 0; }
+        .typewriter { font-size:2rem;letter-spacing:3px;font-family:'FrasesPersonalizada',sans-serif; }
+        .typewriter-text { border-right:3px solid #00fffc;padding-right:5px;animation:blink 0.7s infinite; }
+        @keyframes blink { 0%,100%{border-color:#00fffc} 50%{border-color:transparent} }
+
+        /* CARRUSEL */
+        .carousel-section { padding:4rem 2rem;text-align:center;max-width:1400px;margin:0 auto; }
+        .section-title { font-size:3.5rem;margin-bottom:4rem;font-family:'NombresPersonalizada',sans-serif;color:#00fffc;position:relative; }
+        .section-title::after { content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:120px;height:4px;background:linear-gradient(90deg,#00fffc,#fc00ff); }
+
+        .carousel-container { position:relative;width:100%;max-width:1000px;margin:3rem auto;overflow:hidden;border-radius:3px solid #00fffc;border-radius:15px;box-shadow:0 0 20px rgba(0,255,252,0.3);background:rgba(0,0,0,0.8); }
+        .carousel-track { display:flex;transition:transform 0.5s ease;height:500px; }
+        .carousel-slide { min-width:100%;height:100%;display:flex;justify-content:center;align-items:center;padding:20px; }
+        .carousel-image { max-width:100%;max-height:100%;object-fit:contain;border-radius:10px;cursor:pointer;transition:transform 0.3s; }
+        .carousel-image:hover { transform:scale(1.02); }
+
+        .carousel-btn { position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.7);border:2px solid #00fffc;color:#00fffc;width:50px;height:50px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem;transition:all .3s;z-index:10; }
+        .carousel-btn:hover { background:#00fffc;color:#000;box-shadow:0 0 15px #00fffc; }
+        .carousel-btn.prev { left:20px; }
+        .carousel-btn.next { right:20px; }
+
+        .image-counter { position:absolute;top:15px;right:15px;background:rgba(0,0,0,0.7);color:#00fffc;padding:5px 10px;border-radius:20px;font-size:0.9rem;font-family:'Courier New',monospace;border:1px solid #00fffc;z-index:10; }
+
+        .carousel-indicators { display:flex;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap; }
+        .indicator { width:12px;height:12px;border-radius:50%;background:rgba(0,255,252,0.3);border:1px solid #00fffc;cursor:pointer;transition:all .3s; }
+        .indicator.active { background:#00fffc;box-shadow:0 0 10px #00fffc;transform:scale(1.2); }
+
+        /* PANTALLA COMPLETA REAL (SIN BOTONES ← →) */
+        .fullscreen-overlay {
+            position: fixed;top:0;left:0;width:100vw;height:100vh;background:#000;
+            display: none;justify-content:center;align-items:center;z-index:10000;
         }
-        
-        .matrix-bg {
-            opacity: 0.25;
+        .fullscreen-overlay.active { display:flex; }
+        .fullscreen-overlay img {
+            max-width:100vw;max-height:100vh;object-fit:contain;
         }
-        
-        .particles-bg {
-            opacity: 0.3;
+        .fullscreen-close {
+            position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.7);border:2px solid #00fffc;color:#00fffc;
+            width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+            cursor:pointer;font-size:1.5rem;z-index:10001;transition:all .3s;
         }
-        
-        /* === MENÚ HAMBURGUESA === */
-        .hamburger {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            width: 70px;
-            height: 70px;
-            background: #111;
-            border: 3px double var(--hacker-green);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 0 20px var(--hacker-cyan);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+        .fullscreen-close:hover { background:#ff0000;border-color:#ff0000;color:white;transform:scale(1.1); }
+        .fullscreen-counter {
+            position:absolute;top:20px;left:20px;background:rgba(0,0,0,0.7);color:#00fffc;
+            padding:10px 15px;border-radius:20px;font-size:1.1rem;font-family:'Courier New',monospace;
+            border:2px solid #00fffc;z-index:10001;
         }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 20px var(--hacker-cyan), 0 0 10px var(--hacker-green); }
-            50% { box-shadow: 0 0 40px var(--hacker-cyan), 0 0 20px var(--hacker-green); }
-            100% { box-shadow: 0 0 20px var(--hacker-cyan), 0 0 10px var(--hacker-green); }
-        }
-        
-        .hamburger:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px var(--hacker-cyan), 0 0 20px var(--hacker-green);
-        }
-        
-        .hamburger div {
-            width: 35px;
-            height: 5px;
-            background: var(--hacker-cyan);
-            margin: 6px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px var(--hacker-cyan);
-        }
-        
-        .hamburger.active div:nth-child(1) {
-            transform: rotate(45deg) translate(10px, 10px);
-        }
-        
-        .hamburger.active div:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active div:nth-child(3) {
-            transform: rotate(-45deg) translate(10px, -10px);
-        }
-        
-        /* Menú desplegable */
-        nav {
-            position: fixed;
-            top: 0;
-            right: -350px;
-            width: 350px;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.98);
-            z-index: 999;
-            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            border-left: 4px double var(--hacker-cyan);
-            padding-top: 120px;
-            animation: scan-nav 3s linear infinite;
-        }
-        
-        @keyframes scan-nav {
-            0% { border-left-color: var(--hacker-cyan); }
-            50% { border-left-color: var(--hacker-green); }
-            100% { border-left-color: var(--hacker-cyan); }
-        }
-        
-        nav.active {
-            right: 0;
-            box-shadow: -10px 0 20px var(--hacker-cyan);
-        }
-        
-        nav .logo {
-            width: 100px;
-            height: 100px;
-            display: block;
-            margin: 0 auto 20px;
-            border: 3px solid var(--hacker-green);
-            border-radius: 50%;
-            box-shadow: 0 0 15px var(--hacker-cyan);
-            transition: transform 0.3s ease;
-        }
-        
-        nav .logo:hover {
-            transform: scale(1.05);
-        }
-        
-        nav ul {
-            list-style: none;
-        }
-        
-        nav ul li {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.3s ease;
-        }
-        
-        nav.active ul li {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        nav ul li:nth-child(1) { transition-delay: 0.1s; }
-        nav ul li:nth-child(2) { transition-delay: 0.2s; }
-        nav ul li:nth-child(3) { transition-delay: 0.3s; }
-        nav ul li:nth-child(4) { transition-delay: 0.4s; }
-        
-        nav ul li a {
-            color: var(--hacker-green);
-            text-decoration: none;
-            display: block;
-            padding: 18px 35px;
-            font-size: 1.3rem;
-            border-bottom: 1px solid #333;
-            background: rgba(0, 247, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            background: rgba(0, 247, 255, 0.15);
-            padding-left: 45px;
-            text-shadow: 0 0 15px var(--hacker-cyan);
-            box-shadow: inset 0 0 10px var(--hacker-cyan);
-        }
-        
-        @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            25% { transform: translate(-2px, 2px); }
-            50% { transform: translate(2px, -2px); }
-        }
-        
-        /* === CARRUSEL DE DIAPOSITIVAS === */
-        .carousel-container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px;
-            text-align: center;
-            border: 3px solid var(--hacker-green);
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.9);
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
-            position: relative;
-            transition: all 0.5s ease-in-out;
-        }
-        
-        .carousel-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, transparent, var(--hacker-cyan), transparent);
-            animation: scan-card 2s linear infinite;
-        }
-        
-        @keyframes scan-card {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        .carousel-container h2 {
-            font-size: 3rem;
-            color: var(--hacker-green);
-            text-shadow: 0 0 20px var(--hacker-cyan);
-            margin-bottom: 20px;
-            animation: glitch 1.5s linear infinite;
-        }
-        
-        .carousel {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .carousel-slide {
-            display: none;
-            text-align: center;
-        }
-        
-        .carousel-slide.active {
-            display: block;
-        }
-        
-        .carousel-slide img {
-            max-width: 100%;
-            height: auto;
-            border: 2px solid var(--hacker-cyan);
-            border-radius: 10px;
-            box-shadow: 0 0 15px var(--hacker-cyan);
-            transition: transform 0.3s ease;
-        }
-        
-        .carousel-slide img:hover {
-            transform: scale(1.05);
-            animation: glitch 0.5s linear infinite;
-        }
-        
-        .carousel-slide img.fullscreen {
-            max-width: 100vw;
-            max-height: 100vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border: none;
-            border-radius: 0;
-            box-shadow: none;
-        }
-        
-        .carousel-controls {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .nav-button, .fullscreen-button {
-            background: #111;
-            border: 2px solid var(--hacker-green);
-            color: var(--hacker-cyan);
-            font-size: 1.2rem;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px var(--hacker-cyan);
-            text-transform: uppercase;
-        }
-        
-        .nav-button:hover, .fullscreen-button:hover {
-            background: var(--hacker-cyan);
-            color: #000;
-            box-shadow: 0 0 20px var(--hacker-cyan);
-            animation: glitch 0.5s linear infinite;
-        }
-        
-        .carousel-container p {
-            color: #fff;
-            font-size: 1.2rem;
-            line-height: 1.4;
-            margin: 20px 0;
-        }
-        
-        .carousel-container .highlight {
-            color: var(--hacker-cyan);
-            text-shadow: 0 0 10px var(--hacker-cyan);
+
+        .controls-minimal { margin-top:2rem;padding:10px;color:#ccc;font-size:0.9rem;font-family:'Courier New',monospace; }
+        .controls-minimal .key { background:rgba(0,255,252,0.1);border:1px solid #00fffc;padding:2px 8px;border-radius:4px;margin:0 3px;font-family:monospace; }
+
+        footer { background:rgba(0,0,0,0.9);padding:2rem;text-align:center;font-family:'FrasesPersonalizada',sans-serif;border-top:2px solid #00fffc;margin-top:2rem; }
+
+        @media (max-width:768px) {
+            .glitch { font-size:4rem; }
+            .carousel-track { height:300px; }
+            .carousel-btn { width:40px;height:40px;font-size:1.2rem; }
+            .carousel-btn.prev { left:10px; }
+            .carousel-btn.next { right:10px; }
+            .section-title { font-size:2.5rem; }
         }
     </style>
 </head>
-<body>
-    <!-- === PANTALLA DE CARGA === -->
-    <div class="loader" id="loader">
-        <div class="loader-content">
-            <div class="loader-header">DPCCREA SYSTEM BOOT</div>
-            <div class="loader-status">Iniciando sistema... <span class="cursor">_</span></div>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <div class="loader-messages" id="loaderMessages">
-                <div class="message">> Inicializando módulos...</div>
-                <div class="message">> Cargando recursos gráficos...</div>
-                <div class="message">> Verificando conexiones...</div>
-            </div>
-            <div class="loader-footer">© DPCCREA SECURITY SYSTEM v3.1.4</div>
-        </div>
+<body tabindex="0">
+
+    <!-- TU HTML EXACTO -->
+    <div class="nav-container">
+        <div class="typewriter-nav"><span class="typewriter-nav-text" id="navTypewriter"></span></div>
+        <button class="menu-toggle" id="menuToggle"><div class="hamburger"><span></span><span></span><span></span></div></button>
+        <nav class="nav-menu" id="navMenu">
+            <img src="assets/imagenes/logo.png" alt="DPCCrea Logo" style="width:100px;height:100px;border-radius:50%;border:3px solid #00fffc;margin-bottom:20px;">
+            <div class="nav-item" onclick="location.href='index.html'">INICIO</div>
+            <div class="nav-item" onclick="location.href='pdf.html'">DIAPOSITIVAS</div>
+            <div class="nav-item" onclick="location.href='creators.html'">CREADORES</div>
+            <div class="nav-item" onclick="location.href='juego.html'">JUEGO</div>
+        </nav>
     </div>
-    
-    <!-- === FONDO MATRIX Y PARTÍCULAS === -->
-    <canvas id="matrixCanvas" class="matrix-bg"></canvas>
-    <canvas id="particlesCanvas" class="particles-bg"></canvas>
-    
-    <!-- === MENÚ HAMBURGUESA === -->
-    <div class="hamburger" id="hamburger">
-        <div></div>
-        <div></div>
-        <div></div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- PANTALLA COMPLETA SIN BOTONES ← → -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay" tabindex="0">
+        <div class="fullscreen-counter" id="fullscreenCounter">1/16</div>
+        <div class="fullscreen-close" id="fullscreenClose">×</div>
+        <img id="fullscreenImage" src="" alt="">
     </div>
-    
-    <!-- === MENÚ DESPLEGABLE === -->
-    <nav id="navMenu">
-        <img src="assets/imagenes/logo.png" alt="DPCCrea Logo" class="logo">
-        <ul>
-            <li><a href="index.html">INICIO</a></li>
-            <li><a href="pdf.html">Diapositiva</a></li>
-            <li><a href="creators.html">CREADORES</a></li>
-            <li><a href="juego.html">Juego</a></li>
-        </ul>
-    </nav>
-    
-    <!-- === CARRUSEL DE DIAPOSITIVAS === -->
-    <section class="carousel-container" id="carouselContainer">
-        <h2>// DIAPOSITIVAS CANVA //</h2>
-        <p>Explora nuestras <span class="highlight">16 diapositivas oficiales</span> creadas en Canva. Usa las flechas ←/→ o los botones para navegar, o haz clic en <span class="highlight">pantalla completa</span> (sal con Esc).</p>
-        <div class="carousel">
-            <div class="carousel-slide active">
-                <img src="assets/slides/slide1.png" alt="Diapositiva 1">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide2.png" alt="Diapositiva 2">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide3.png" alt="Diapositiva 3">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide4.png" alt="Diapositiva 4">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide5.png" alt="Diapositiva 5">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide6.png" alt="Diapositiva 6">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide7.png" alt="Diapositiva 7">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide8.png" alt="Diapositiva 8">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide9.png" alt="Diapositiva 9">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide10.png" alt="Diapositiva 10">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide11.png" alt="Diapositiva 11">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide12.png" alt="Diapositiva 12">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide13.png" alt="Diapositiva 13">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide14.png" alt="Diapositiva 14">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide15.png" alt="Diapositiva 15">
-            </div>
-            <div class="carousel-slide">
-                <img src="assets/slides/slide16.png" alt="Diapositiva 16">
-            </div>
+
+    <section class="hero">
+        <h1 class="glitch">DPCCREA</h1>
+        <div class="typewriter-container"><div class="typewriter"><span class="typewriter-text" id="typewriter"></span></div></div>
+        <button class="btn" onclick="document.querySelector('.carousel-section').scrollIntoView({behavior:'smooth'})" style="padding:1.2rem 3rem;background:linear-gradient(45deg,#00fffc,#fc00ff);border:none;border-radius:50px;color:white;font-weight:bold;text-transform:uppercase;font-family:'NombresPersonalizada',sans-serif;cursor:pointer;transition:all .3s;margin-top:2rem;font-size:1.1rem;">VER DIAPOSITIVAS</button>
+    </section>
+
+    <section class="carousel-section">
+        <h2 class="section-title">DIAPOSITIVAS CANVA</h2>
+        <p style="color:#ccc;font-size:1.2rem;margin-bottom:3rem;">16 diapositivas oficiales - Navega con las flechas o haz clic en la imagen</p>
+
+        <div class="carousel-container">
+            <div class="image-counter" id="imageCounter">1/16</div>
+            <div class="carousel-track" id="carouselTrack"></div>
+            <button class="carousel-btn prev" id="prevBtn">←</button>
+            <button class="carousel-btn next" id="nextBtn">→</button>
         </div>
-        <div class="carousel-controls">
-            <button class="nav-button" id="prevButton">ANTERIOR</button>
-            <button class="fullscreen-button" id="fullscreenButton">PANTALLA COMPLETA</button>
-            <button class="nav-button" id="nextButton">SIGUIENTE</button>
+
+        <div class="carousel-indicators" id="indicators"></div>
+
+        <div class="controls-minimal">
+            <span class="key">F</span> Pantalla completa • 
+            <span class="key">←</span> <span class="key">→</span> Navegar • 
+            <span class="key">ESC</span> Salir • 
+            <span style="color:#00fffc;">16 diapositivas</span>
         </div>
     </section>
 
+    <footer>
+        <p>© 2025 DPCCREA - Diapositivas educativas Canva</p>
+        <p>Diseñado con pasión por L_Adriano</p>
+    </footer>
+
     <script>
-        // ===== PANTALLA DE CARGA =====
-        const loader = document.getElementById('loader');
-        const progressBar = document.getElementById('progressBar');
-        const loaderMessages = document.getElementById('loaderMessages');
-        const statusText = document.querySelector('.loader-status');
-        
-        // Mensajes de sistema simulados
-        const systemMessages = [
-            {text: "> Conectando con servidor DPCCREA...", type: ""},
-            {text: "[OK] Conexión establecida", type: "success"},
-            {text: "> Cargando módulo de carrusel Canva...", type: ""},
-            {text: "[WARNING] Alto consumo de recursos gráficos", type: "warning"},
-            {text: "> Inicializando base de datos...", type: ""},
-            {text: "[OK] 1428 registros cargados", type: "success"},
-            {text: "> Verificando licencia...", type: ""},
-            {text: "[OK] Licencia Premium activa", type: "success"},
-            {text: "> Cargando 16 diapositivas Canva...", type: ""},
-            {text: "[OK] Sistema listo para usar", type: "success"}
-        ];
-        
-        // Simular progreso del sistema
-        let progress = 0;
-        let messageIndex = 0;
-        
-        function updateProgress() {
-            if (progress < 100) {
-                progress += Math.random() * 5;
-                if (progress > 100) progress = 100;
-                
-                progressBar.style.width = progress + '%';
-                
-                // Mostrar mensajes según progreso
-                if (messageIndex < systemMessages.length && progress >= (messageIndex + 1) * (100 / systemMessages.length)) {
-                    const msg = document.createElement('div');
-                    msg.className = `message ${systemMessages[messageIndex].type}`;
-                    msg.textContent = systemMessages[messageIndex].text;
-                    loaderMessages.appendChild(msg);
-                    loaderMessages.scrollTop = loaderMessages.scrollHeight;
-                    messageIndex++;
-                }
-                
-                // Actualizar texto de estado
-                statusText.innerHTML = getStatusText(progress) + ' <span class="cursor">_</span>';
-                
-                setTimeout(updateProgress, 100 + Math.random() * 200);
-            } else {
-                // Sistema completamente cargado
-                statusText.innerHTML = "Sistema listo <span class='cursor'>_</span>";
-                setTimeout(() => {
-                    loader.style.opacity = '0';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                    }, 500);
-                }, 1000);
+        class TypeWriter {
+            constructor(el, phrases, speed=90, del=40, pause=2000) {
+                this.el = el; this.phrases = phrases; this.speed = speed; this.del = del; this.pause = pause;
+                this.i = 0; this.j = 0; this.deleting = false; this.type();
+            }
+            type() {
+                const full = this.phrases[this.i];
+                this.el.textContent = this.deleting ? full.substring(0, this.j--) : full.substring(0, this.j++);
+                if (!this.deleting && this.j === full.length) setTimeout(() => this.deleting = true, this.pause);
+                else if (this.deleting && this.j === 0) { this.deleting = false; this.i = (this.i + 1) % this.phrases.length; }
+                setTimeout(() => this.type(), this.deleting ? this.del : this.speed);
             }
         }
-        
-        function getStatusText(progress) {
-            if (progress < 30) return "Inicializando núcleo del sistema...";
-            if (progress < 60) return "Cargando componentes...";
-            if (progress < 90) return "Optimizando rendimiento...";
-            return "Finalizando procesos...";
-        }
-        
-        // Iniciar la simulación
-        setTimeout(updateProgress, 1000);
-        
-        // ===== FONDO MATRIX =====
-        const matrixCanvas = document.getElementById('matrixCanvas');
-        const matrixCtx = matrixCanvas.getContext('2d');
-        
-        matrixCanvas.width = window.innerWidth;
-        matrixCanvas.height = window.innerHeight;
-        
-        const chars = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾁﾔﾖﾌﾝ★☆◆◇♠♣♥♦";
-        const fontSize = 20;
-        const columns = matrixCanvas.width / fontSize;
-        const drops = [];
-        
-        for (let i = 0; i < columns; i++) {
-            drops[i] = Math.floor(Math.random() * matrixCanvas.height);
-        }
-        
-        function drawMatrix() {
-            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.06)';
-            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            
-            matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--hacker-cyan').trim();
-            matrixCtx.font = `bold ${fontSize}px monospace`;
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
-                
-                if (drops[i] * fontSize > matrixCanvas.height || Math.random() > 0.97) {
-                    drops[i] = 0;
-                }
-                
-                drops[i] += 1.5;
-            }
-        }
-        
-        setInterval(drawMatrix, 40);
-        
-        // ===== PARTÍCULAS =====
-        const particlesCanvas = document.getElementById('particlesCanvas');
-        const particlesCtx = particlesCanvas.getContext('2d');
-        
-        particlesCanvas.width = window.innerWidth;
-        particlesCanvas.height = window.innerHeight;
-        
-        const particlesArray = [];
-        const particleCount = 50;
-        
-        class Particle {
+
+        class Carousel {
             constructor() {
-                this.x = Math.random() * particlesCanvas.width;
-                this.y = Math.random() * particlesCanvas.height;
-                this.size = Math.random() * 5 + 2;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
+                this.currentIndex = 0;
+                this.total = 16;
+                this.isFullscreen = false;
+
+                this.track = document.getElementById('carouselTrack');
+                this.counter = document.getElementById('imageCounter');
+                this.fsCounter = document.getElementById('fullscreenCounter');
+                this.fsImage = document.getElementById('fullscreenImage');
+                this.fsOverlay = document.getElementById('fullscreenOverlay');
+                this.fsClose = document.getElementById('fullscreenClose');
+                this.indicators = document.getElementById('indicators');
+
+                this.init();
+                this.events();
             }
-            
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                
-                if (this.size > 0.2) this.size -= 0.05;
-                
-                if (this.x < 0 || this.x > particlesCanvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > particlesCanvas.height) this.speedY *= -1;
-            }
-            
-            draw() {
-                particlesCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--hacker-cyan').trim();
-                particlesCtx.beginPath();
-                particlesCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                particlesCtx.fill();
-            }
-        }
-        
-        function initParticles() {
-            for (let i = 0; i < particleCount; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-        
-        function animateParticles() {
-            particlesCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            particlesCtx.fillRect(0, 0, particlesCanvas.width, particlesCanvas.height);
-            
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                
-                if (particlesArray[i].size <= 0.2) {
-                    particlesArray.splice(i, 1);
-                    i--;
-                    particlesArray.push(new Particle());
+
+            init() {
+                for (let i = 1; i <= this.total; i++) {
+                    const slide = document.createElement('div');
+                    slide.className = 'carousel-slide';
+                    const img = document.createElement('img');
+                    img.className = 'carousel-image';
+                    img.src = `assets/slides/slide${i}.png`;
+                    img.alt = `Diapositiva ${i}`;
+                    img.onclick = () => this.openTrueFullscreen(i);
+                    img.onerror = () => img.src = `https://picsum.photos/900/600?random=${i}`;
+                    slide.appendChild(img);
+                    this.track.appendChild(slide);
+
+                    const dot = document.createElement('div');
+                    dot.className = 'indicator' + (i===1?' active':'');
+                    dot.onclick = () => this.go(i-1);
+                    this.indicators.appendChild(dot);
                 }
+                this.update();
             }
-            
-            requestAnimationFrame(animateParticles);
-        }
-        
-        initParticles();
-        animateParticles();
-        
-        // ===== MENÚ HAMBURGUESA =====
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            
-            if (navMenu.classList.contains('active')) {
-                hamburger.children[0].style.transform = 'rotate(45deg) translate(10px, 10px)';
-                hamburger.children[1].style.opacity = '0';
-                hamburger.children[2].style.transform = 'rotate(-45deg) translate(10px, -10px)';
-            } else {
-                hamburger.children[0].style.transform = 'none';
-                hamburger.children[1].style.opacity = '1';
-                hamburger.children[2].style.transform = 'none';
+
+            update() {
+                this.track.style.transform = `translateX(-${this.currentIndex*100}%)`;
+                this.counter.textContent = `${this.currentIndex+1}/${this.total}`;
+                this.fsCounter.textContent = `${this.currentIndex+1}/${this.total}`;
+                document.querySelectorAll('.indicator').forEach((d, i) => d.classList.toggle('active', i === this.currentIndex));
             }
-        });
-        
-        // ===== CARRUSEL Y PANTALLA COMPLETA =====
-        const carouselContainer = document.getElementById('carouselContainer');
-        const slides = document.querySelectorAll('.carousel-slide');
-        const images = document.querySelectorAll('.carousel-slide img');
-        const prevButton = document.getElementById('prevButton');
-        const nextButton = document.getElementById('nextButton');
-        const fullscreenButton = document.getElementById('fullscreenButton');
-        let currentSlide = 0;
-        
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-            });
-        }
-        
-        function updateFullscreen(newIndex) {
-            if (document.fullscreenElement) {
-                document.exitFullscreen().then(() => {
-                    images.forEach(img => img.classList.remove('fullscreen'));
-                    currentSlide = newIndex;
-                    showSlide(currentSlide);
-                    images[currentSlide].requestFullscreen().then(() => {
-                        images[currentSlide].classList.add('fullscreen');
-                    }).catch(err => {
-                        console.error('Error al entrar en pantalla completa:', err);
-                    });
+
+            go(n) {
+                this.currentIndex = Math.max(0, Math.min(n, this.total-1));
+                this.update();
+                if (this.isFullscreen) this.fsImage.src = `assets/slides/slide${this.currentIndex+1}.png`;
+            }
+            next() { if (this.currentIndex < this.total-1) this.go(this.currentIndex+1); }
+            prev() { if (this.currentIndex > 0) this.go(this.currentIndex-1); }
+
+            // PANTALLA COMPLETA REAL
+            async openTrueFullscreen(n = null) {
+                if (n !== null) this.go(n-1);
+                this.isFullscreen = true;
+                this.fsImage.src = `assets/slides/slide${this.currentIndex+1}.png`;
+                this.fsOverlay.classList.add('active');
+
+                if (this.fsOverlay.requestFullscreen) await this.fsOverlay.requestFullscreen();
+                else if (this.fsOverlay.webkitRequestFullscreen) await this.fsOverlay.webkitRequestFullscreen();
+                else if (this.fsOverlay.msRequestFullscreen) await this.fsOverlay.msRequestFullscreen();
+            }
+
+            async closeTrueFullscreen() {
+                this.isFullscreen = false;
+                this.fsOverlay.classList.remove('active');
+                if (document.exitFullscreen) await document.exitFullscreen();
+                else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
+                else if (document.msExitFullscreen) await document.msExitFullscreen();
+            }
+
+            events() {
+                document.addEventListener('keydown', e => {
+                    if (['ArrowLeft','ArrowRight','f','F','Escape'].includes(e.key)) e.preventDefault();
+                    if (e.key === 'ArrowLeft') this.prev();
+                    if (e.key === 'ArrowRight') this.next();
+                    if (e.key === 'f' || e.key === 'F') this.isFullscreen ? this.closeTrueFullscreen() : this.openTrueFullscreen();
+                    if (e.key === 'Escape' && this.isFullscreen) this.closeTrueFullscreen();
+                    if (this.isFullscreen) this.fsImage.src = `assets/slides/slide${this.currentIndex+1}.png`;
                 });
-            } else {
-                currentSlide = newIndex;
-                showSlide(currentSlide);
+
+                this.fsClose.onclick = () => this.closeTrueFullscreen();
+                this.fsOverlay.onclick = e => { if (e.target === this.fsOverlay) this.closeTrueFullscreen(); };
             }
         }
-        
-        prevButton.addEventListener('click', () => {
-            const newIndex = (currentSlide - 1 + slides.length) % slides.length;
-            updateFullscreen(newIndex);
+
+        // Menú y todo lo demás igual
+        document.getElementById('menuToggle').onclick = function() {
+            this.classList.toggle('active');
+            document.getElementById('navMenu').classList.toggle('active');
+            document.getElementById('menuOverlay').classList.toggle('active');
+        };
+        document.getElementById('menuOverlay').onclick = function() {
+            document.getElementById('menuToggle').classList.remove('active');
+            document.getElementById('navMenu').classList.remove('active');
+            this.classList.remove('active');
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new TypeWriter(document.getElementById('typewriter'), [
+                "Diapositivas educativas Canva...",
+                "16 presentaciones únicas...",
+                "Navegación cyberpunk...",
+                "Pantalla completa con F..."
+            ]);
+            new TypeWriter(document.getElementById('navTypewriter'), [
+                "DPCCREA","DIAPOSITIVAS","CANVA","16 SLIDES","FULLSCREEN"
+            ], 100, 50, 1500);
+            new Carousel();
         });
-        
-        nextButton.addEventListener('click', () => {
-            const newIndex = (currentSlide + 1) % slides.length;
-            updateFullscreen(newIndex);
-        });
-        
-        fullscreenButton.addEventListener('click', () => {
-            const currentImage = images[currentSlide];
-            if (!document.fullscreenElement) {
-                currentImage.requestFullscreen().then(() => {
-                    currentImage.classList.add('fullscreen');
-                }).catch(err => {
-                    console.error('Error al entrar en pantalla completa:', err);
-                });
-            } else {
-                document.exitFullscreen().then(() => {
-                    currentImage.classList.remove('fullscreen');
-                });
-            }
-        });
-        
-        // Navegación con teclas flecha izquierda y derecha
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowLeft') {
-                const newIndex = (currentSlide - 1 + slides.length) % slides.length;
-                updateFullscreen(newIndex);
-            } else if (event.key === 'ArrowRight') {
-                const newIndex = (currentSlide + 1) % slides.length;
-                updateFullscreen(newIndex);
-            }
-        });
-        
-        // Ajustar estilos al salir de pantalla completa
-        document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) {
-                images.forEach(img => img.classList.remove('fullscreen'));
-            }
-        });
-        
-        // Mostrar la primera diapositiva
-        showSlide(currentSlide);
     </script>
 </body>
 </html>
