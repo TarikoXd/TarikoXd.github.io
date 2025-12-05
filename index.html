@@ -1,458 +1,210 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DPCCrea</title>
-    <meta name="description" content="Descubre artículos, guías y recursos educativos sobre sexualidad, identidad y diversidad. Información confiable, segura y respetuosa para todas las edades.">
-    <meta name="keywords" content="sexualidad, identidad, diversidad, género, educación sexual, mediación, bienestar">
+    <title>DPCCREA</title>
+    <meta name="description" content="Proyectos educativos sobre sexualidad, identidad y diversidad con diseño cyberpunk. Hecho por L_Adriano">
+    <meta name="keywords" content="DPCCREA, sexualidad, identidad, diversidad, educación, cyberpunk, L_Adriano">
+    <meta name="author" content="L_Adriano">
+    
+    <!-- Meta tags adicionales de DPCCrea -->
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Sexualidad e Identidad - DPCCrea">
+    <meta property="og:title" content="Sexualidad e Identidad - DPCCREA">
     <meta property="og:description" content="Explora recursos educativos sobre sexualidad, identidad y diversidad con un enfoque inclusivo y respetuoso.">
     <meta property="og:image" content="https://dpccrea.com/assets/imagenes/og-image.jpg">
     <meta property="og:url" content="https://dpccrea.com">
     <meta property="og:type" content="website">
+    
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/imagenes/favicon.ico">
-    <link rel="icon" type="image/png" sizes="128x128" href="/assets/imagenes/favicon-128x128.png">
-    <link rel="apple-touch-icon" sizes="128x128" href="/assets/imagenes/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/imagenes/favicon-192x192.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
     <style>
-        :root {
-            --golden-main: #FFD700;
-            --golden-accent: #DAA520;
-            --inclusive-purple: #8A2BE2;
-            --dark-color: #000;
-            --neon-cyan: #00CED1;
-            --neon-pink: #FF69B4;
-            --hacker-cyan: #00ffcc;
-            --diversity-pink: #ff66c4;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', monospace;
-        }
+        @font-face { font-family: 'FrasesPersonalizada'; src: url('assets/fonts/frases/Small Cake.otf') format('opentype'); font-display: swap; }
+        @font-face { font-family: 'NombresPersonalizada'; src: url('assets/fonts/nombre/Jumps Winter.otf') format('opentype'); font-display: swap; }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
         html, body {
             width: 100%;
             height: 100%;
-            background-color: var(--dark-color);
+            background: linear-gradient(135deg, #0f0f0f, #1a1a2e, #16213e);
             color: white;
             overflow-x: hidden;
-            overflow-y: auto;
-            position: relative;
+            font-family: 'Segoe UI', sans-serif;
         }
-        .content {
-            transition: filter 0.5s ease;
-        }
-        .content.blur {
-            filter: blur(5px);
-        }
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 9999;
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-        }
-        .loader-content {
-            position: relative;
-            width: 80%;
-            max-width: 600px;
-            border: 3px double var(--golden-main);
-            padding: 30px;
-            box-shadow: 0 0 30px var(--golden-accent), 0 0 50px var(--golden-main);
-            background: rgba(0, 0, 0, 0.85);
-            animation: scanline 4s linear infinite;
-        }
-        @keyframes scanline {
-            0% { box-shadow: 0 0 30px var(--golden-accent), 0 0 50px var(--golden-main); }
-            50% { box-shadow: 0 0 50px var(--golden-accent), 0 0 30px var(--golden-main); }
-            100% { box-shadow: 0 0 30px var(--golden-accent), 0 0 50px var(--golden-main); }
-        }
-        .loader-header {
-            color: var(--golden-main);
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 2rem;
-            text-shadow: 0 0 15px var(--golden-accent);
-            animation: type 2s steps(20) infinite;
+            padding-top: 80px;
+            position: relative;
+            z-index: 1;
         }
-        @keyframes type {
-            0%, 100% { width: 0; }
-            50% { width: 100%; }
+        .glitch {
+            font-size: 8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+            font-family: 'NombresPersonalizada', sans-serif;
         }
-        .loader-status {
-            color: var(--golden-main);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff; }
+            15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff; }
+            16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff; }
+            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff; }
+            50% { text-shadow: 0.05em 0.05em 0 #00fffc, 0em 0em 0 #fc00ff; }
+            99% { text-shadow: 0.05em 0.05em 0 #00fffc, 0em 0em 0 #fc00ff; }
+            100% { text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff; }
         }
-        .progress-container {
-            width: 100%;
-            height: 20px;
-            background: #111;
-            border: 1px solid var(--golden-accent);
-            margin-bottom: 20px;
+
+        .typewriter-container { height: 80px; margin: 2rem 0; }
+        .typewriter { font-size: 2rem; letter-spacing: 3px; font-family: 'FrasesPersonalizada', sans-serif; }
+        .typewriter-text { border-right: 3px solid #00fffc; padding-right: 5px; animation: blink 0.7s infinite; }
+        @keyframes blink { 0%,100% { border-color:#00fffc; } 50% { border-color:transparent; } }
+
+        /* ===== NAV MENU ===== */
+        .nav-container {
+            position: fixed; 
+            top:0; 
+            left:0; 
+            width:100%; 
+            background:rgba(0,0,0,0.95); 
+            backdrop-filter:blur(15px);
+            z-index:1000; 
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            padding:1rem 2rem;
+        }
+        .nav-container::after {
+            content:''; 
+            position:absolute; 
+            bottom:0; 
+            left:0; 
+            width:100%; 
+            height:2px;
+            background:linear-gradient(90deg,#00fffc,#fc00ff,#fffc00,#00fffc); 
+            background-size:300%; 
+            animation:rgbFlow 3s linear infinite;
+        }
+        @keyframes rgbFlow { 0%{background-position:0%} 100%{background-position:300%} }
+
+        .nav-title {
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            background: linear-gradient(90deg, #00fffc, #fc00ff, #fffc00);
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            color: transparent; 
+            text-transform: uppercase;
+            font-family: 'NombresPersonalizada', sans-serif;
             position: relative;
             overflow: hidden;
         }
-        .progress-bar {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(90deg, var(--golden-accent), var(--golden-main));
-            transition: width 0.3s;
-            box-shadow: 0 0 10px var(--golden-main), 0 0 15px var(--golden-accent);
+
+        .menu-toggle { 
+            background: linear-gradient(45deg, #00fffc, #fc00ff); 
+            border: none; 
+            cursor: pointer; 
+            padding: 12px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0,255,252,0.3); 
+            transition: all .3s; 
         }
-        .loader-messages {
-            height: 120px;
-            overflow-y: auto;
-            border: 1px solid #333;
-            padding: 10px;
-            margin-bottom: 20px;
-            background: #000;
+        .menu-toggle:hover { transform: scale(1.1); }
+        .hamburger span { 
+            display: block; 
+            height: 2px; 
+            width: 25px; 
+            background: white; 
+            margin: 5px 0; 
+            transition: all .4s cubic-bezier(0.68,-0.55,0.265,1.55); 
         }
-        .message {
-            color: var(--golden-main);
-            margin-bottom: 5px;
-            font-size: 0.9rem;
+        .menu-toggle.active .hamburger span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        .menu-toggle.active .hamburger span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active .hamburger span:nth-child(3) { transform: rotate(-45deg) translate(7px,-6px); }
+
+        .nav-menu {
+            position: fixed; 
+            top: 0; 
+            right: -100%; 
+            width: 320px; 
+            height: 100vh; 
+            background: rgba(10,10,20,0.98);
+            backdrop-filter: blur(20px); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            transition: all .5s cubic-bezier(0.68,-0.55,0.265,1.55); 
+            border-left: 3px solid; 
+            border-image: linear-gradient(#00fffc, #fc00ff) 1;
+            z-index: 1001;
         }
-        .message.success { color: #00ff00; }
-        .message.error { color: #ff0000; }
-        .message.warning { color: #ffff00; }
-        .loader-footer {
-            color: var(--golden-accent);
+        .nav-menu.active { right: 0; }
+        .nav-item {
+            padding: 1.5rem 3rem; 
+            font-size: 1.4rem; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            width: 100%; 
             text-align: center;
-            font-size: 0.8rem;
-            text-shadow: 0 0 10px var(--golden-accent);
+            background: rgba(255,255,255,0.05); 
+            border-radius: 10px; 
+            margin: 0.5rem 0; 
+            font-family: 'NombresPersonalizada', sans-serif;
+            color: #00fffc;
+            transition: all 0.3s ease;
         }
-        .cursor {
-            animation: blink 0.7s infinite;
+        .nav-item:hover { 
+            background: rgba(0,255,252,0.15); 
+            transform: translateX(-10px); 
+            color: white;
         }
-        @keyframes blink {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
+
+        .menu-overlay {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.7); 
+            backdrop-filter: blur(10px);
+            z-index: 999; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: all .4s;
         }
-        .update-popup, .campaign-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 500px;
-            max-height: 80vh;
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid var(--golden-main);
-            padding: 20px;
-            box-shadow: 0 0 20px var(--golden-accent), 0 0 30px var(--inclusive-purple);
-            z-index: 10000;
-            text-align: center;
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            border-radius: 10px;
-            animation: fadeIn 0.5s ease-in-out;
-            overflow-y: auto;
-        }
-        .campaign-popup {
-            width: 600px;
-            height: 400px;
-            background-image: url('assets/imagenes/campana-ambiental1.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translate(-50%, -60%); }
-            100% { opacity: 1; transform: translate(-50%, -50%); }
-        }
-        .update-popup.active, .campaign-popup.active {
-            display: flex;
-        }
-        .update-popup h2, .campaign-popup h2 {
-            color: var(--golden-main);
-            font-size: 1.8rem;
-            text-shadow: 0 0 10px var(--golden-accent);
-            margin-bottom: 15px;
-        }
-        .update-section {
-            margin: 15px 0;
-            text-align: left;
-        }
-        .update-section h3 {
-            color: var(--golden-accent);
-            font-size: 1.3rem;
-            text-shadow: 0 0 8px var(--golden-accent);
-            margin-bottom: 8px;
-        }
-        .update-section ul {
-            list-style: none;
-            color: var(--golden-main);
-            font-size: 0.9rem;
-            text-shadow: 0 0 5px var(--golden-main);
-        }
-        .update-section ul li {
-            margin-bottom: 6px;
-            padding-left: 15px;
+        .menu-overlay.active { opacity: 1; visibility: visible; }
+
+        /* ===== CATALOGO DPCCREA ===== */
+        .section { padding: 8rem 2rem; text-align: center; }
+        .section-title {
+            font-size: 3.5rem; 
+            margin-bottom: 4rem; 
+            font-family: 'NombresPersonalizada', sans-serif; 
+            color: #00fffc;
             position: relative;
         }
-        .update-section ul li:before {
-            content: '>';
-            position: absolute;
-            left: 0;
-            color: var(--inclusive-purple);
+        .section-title::after {
+            content: ''; 
+            position: absolute; 
+            bottom: -10px; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width: 120px; 
+            height: 4px; 
+            background: linear-gradient(90deg, #00fffc, #fc00ff);
         }
-        .update-button, .campaign-button {
-            background: var(--golden-accent);
-            border: 2px solid var(--golden-main);
-            color: #000;
-            font-size: 1rem;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px var(--golden-accent);
-            text-transform: uppercase;
-            margin-top: 15px;
-        }
-        .update-button.enabled, .campaign-button {
-            cursor: pointer;
-            opacity: 1;
-        }
-        .update-button.enabled:hover, .campaign-button:hover {
-            background: var(--golden-main);
-            box-shadow: 0 0 15px var(--golden-accent);
-            transform: scale(1.05);
-        }
-        .matrix-bg, .particles-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        .matrix-bg {
-            opacity: 0.4;
-        }
-        .particles-bg {
-            opacity: 0.5;
-        }
-        .hamburger {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: #111;
-            border: 3px double var(--golden-main);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 0 20px var(--golden-accent);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 20px var(--golden-accent), 0 0 10px var(--golden-main); }
-            50% { box-shadow: 0 0 40px var(--golden-accent), 0 0 20px var(--golden-main); }
-            100% { box-shadow: 0 0 20px var(--golden-accent), 0 0 10px var(--golden-main); }
-        }
-        .hamburger:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px var(--golden-accent), 0 0 20px var(--golden-main);
-        }
-        .hamburger div {
-            width: 30px;
-            height: 4px;
-            background: var(--golden-accent);
-            margin: 5px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px var(--golden-accent);
-        }
-        .hamburger.active div:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-        .hamburger.active div:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active div:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
-        }
-        nav {
-            position: fixed;
-            top: 0;
-            right: -350px;
-            width: 350px;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.98);
-            z-index: 999;
-            transition: right 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            border-left: 4px double var(--golden-accent);
-            padding-top: 120px;
-            animation: scan-nav 3s linear infinite;
-            overflow-x: hidden;
-        }
-        @keyframes scan-nav {
-            0% { border-left-color: var(--golden-accent); }
-            50% { border-left-color: var(--golden-main); }
-            100% { border-left-color: var(--golden-accent); }
-        }
-        nav.active {
-            right: 0;
-            box-shadow: -10px 0 20px var(--golden-accent);
-        }
-        nav .logo {
-            width: 100px;
-            height: 100px;
-            display: block;
-            margin: 0 auto 20px;
-            border: 3px solid var(--golden-main);
-            border-radius: 50%;
-            box-shadow: 0 0 15px var(--golden-accent);
-            transition: transform 0.3s ease;
-        }
-        nav .logo:hover {
-            transform: scale(1.05);
-        }
-        nav ul {
-            list-style: none;
-            width: 100%;
-        }
-        nav ul li {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.3s ease;
-        }
-        nav.active ul li {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        nav ul li:nth-child(1) { transition-delay: 0.1s; }
-        nav ul li:nth-child(2) { transition-delay: 0.2s; }
-        nav ul li:nth-child(3) { transition-delay: 0.3s; }
-        nav ul li:nth-child(4) { transition-delay: 0.4s; }
-        nav ul li:nth-child(5) { transition-delay: 0.5s; }
-        nav ul li a {
-            color: var(--golden-main);
-            text-decoration: none;
-            display: block;
-            padding: 18px 35px;
-            font-size: 1.3rem;
-            border-bottom: 1px solid #333;
-            background: rgba(218, 165, 32, 0.05);
-            transition: all 0.3s ease;
-        }
-        nav ul li a:hover {
-            background: rgba(218, 165, 32, 0.15);
-            padding-left: 45px;
-            text-shadow: 0 0 15px var(--golden-accent);
-            box-shadow: inset 0 0 10px var(--golden-accent);
-        }
-        .counter-container {
-            margin: 20px 35px;
-            text-align: center;
-            font-size: 1.4rem;
-            font-weight: bold;
-            animation: rgbGlow 3s infinite;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-        .counter-container div {
-            display: inline-block;
-            background: transparent;
-            padding: 10px 20px;
-            border: 2px solid transparent;
-            border-radius: 5px;
-            min-height: 40px;
-            min-width: 100px;
-            animation: rgbGlow 3s infinite;
-            pointer-events: none;
-            transition: transform 0.3s ease;
-            font-weight: bold;
-        }
-        .counter-container:hover div {
-            transform: scale(1.05);
-        }
-        .counter-fallback {
-            font-size: 1.2rem;
-            font-weight: bold;
-            animation: rgbGlow 3s infinite;
-        }
-        @keyframes rgbGlow {
-            0% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
-            33% { color: #00ff00; text-shadow: 0 0 10px #00ff00; }
-            66% { color: #0000ff; text-shadow: 0 0 10px #0000ff; }
-            100% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
-        }
-        .gif-container {
-            margin: 2rem auto;
-            display: flex;
-            justify-content: center;
-        }
-        .gif-container img {
-            width: 200px;
-            height: 200px;
-            border: 2px solid var(--golden-main);
-            border-radius: 10px;
-            box-shadow: 0 0 15px var(--inclusive-purple);
-            transition: transform 0.3s ease;
-        }
-        .gif-container img:hover {
-            transform: scale(1.05);
-        }
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            text-align: center;
-            border-top: 4px solid var(--golden-accent);
-            margin-top: 2rem;
-        }
-        footer a {
-            color: var(--golden-main);
-            text-decoration: none;
-            font-size: 1rem;
-            text-shadow: 0 0 10px var(--golden-accent);
-            margin: 0 15px;
-        }
-        footer a:hover {
-            text-shadow: 0 0 15px var(--golden-main);
-        }
-        footer .version {
-            color: var(--golden-main);
-            font-size: 0.9rem;
-            text-shadow: 0 0 10px var(--golden-accent);
-            margin-top: 10px;
-        }
-        @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            25% { transform: translate(-2px, 2px); }
-            50% { transform: translate(2px, -2px); }
-        }
-        header {
-            background: #000;
-            padding: 6rem 0;
-            text-align: center;
-            border-bottom: 4px solid var(--golden-accent);
-        }
-        h1 {
-            font-size: 4.5rem;
-            color: var(--golden-main);
-            text-shadow: 0 0 25px var(--golden-accent);
-            letter-spacing: 5px;
-            animation: glitch 1.5s linear infinite;
-        }
+
+        /* Galería para Desktop */
         .gallery {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -463,18 +215,19 @@
             overflow-x: hidden;
         }
         .gallery-item {
-            border: 4px solid var(--golden-main);
+            border: 4px solid #00fffc;
             border-radius: 15px;
             overflow: hidden;
             aspect-ratio: 1/1;
             transition: all 0.3s ease-in-out;
-            box-shadow: 0 0 15px var(--inclusive-purple);
+            box-shadow: 0 0 10px rgba(0,255,252,0.3);
             position: relative;
             cursor: pointer;
         }
         .gallery-item:hover {
             transform: scale(1.03);
-            box-shadow: 0 0 30px var(--golden-accent);
+            box-shadow: 0 0 20px rgba(0,255,252,0.6);
+            border-color: #fffc00;
         }
         .gallery img {
             width: 100%;
@@ -486,6 +239,8 @@
         .gallery-item:hover img {
             transform: scale(1.05);
         }
+
+        /* Lista para móviles */
         .list-container {
             display: none;
             padding: 20px;
@@ -493,12 +248,12 @@
             margin: 0 auto;
         }
         .list-item {
-            border: 4px solid var(--golden-main);
+            border: 4px solid #00fffc;
             border-radius: 15px;
             overflow: hidden;
             aspect-ratio: 1/1;
             transition: all 0.3s ease-in-out;
-            box-shadow: 0 0 15px var(--inclusive-purple);
+            box-shadow: 0 0 10px rgba(0,255,252,0.3);
             position: relative;
             cursor: pointer;
             margin-bottom: 20px;
@@ -508,7 +263,7 @@
         }
         .list-item:hover {
             transform: scale(1.03);
-            box-shadow: 0 0 30px var(--golden-accent);
+            box-shadow: 0 0 20px rgba(0,255,252,0.6);
         }
         .list-item img {
             width: 100%;
@@ -517,160 +272,87 @@
             transition: transform 0.3s ease-in-out;
             loading: lazy;
         }
-        .list-item:hover img {
-            transform: scale(1.05);
-        }
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.95);
-            border: 2px solid var(--hacker-cyan);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            z-index: 10000;
-            max-width: 300px;
-            box-shadow: 0 0 20px var(--hacker-cyan), 0 0 10px var(--diversity-pink);
-            font-family: 'Courier New', monospace;
-            animation: notifIn 0.5s ease-out;
-            pointer-events: auto;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .notification img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--hacker-cyan);
-            box-shadow: 0 0 10px var(--diversity-pink);
-        }
-        .notification strong {
-            color: var(--hacker-cyan);
-        }
-        .notification p {
-            margin: 8px 0;
-            color: #ddd;
-            font-size: 0.9rem;
-        }
-        @keyframes notifIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes notifOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
+
+        /* ===== BOTÓN DE COMENTARIOS (SIN BRILLO) ===== */
         .bubble {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: var(--inclusive-purple);
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00fffc;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--golden-main);
-            font-size: 32px;
+            color: #00fffc;
+            font-size: 24px;
             cursor: pointer;
             position: fixed;
             bottom: 30px;
             right: 30px;
-            box-shadow: 0 0 15px var(--golden-accent), 0 0 20px var(--inclusive-purple);
-            transition: transform 0.2s ease, background 0.3s ease;
+            transition: all 0.3s ease;
             z-index: 1000;
+            backdrop-filter: blur(5px);
         }
         .bubble:hover {
             transform: scale(1.1);
-            background: var(--golden-accent);
-            box-shadow: 0 0 20px var(--golden-main), 0 0 25px var(--inclusive-purple);
+            background: rgba(0, 255, 252, 0.1);
+            color: white;
         }
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 9998;
-        }
-        .menu-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .menu {
+
+        /* ===== MENÚ DE COMENTARIOS ===== */
+        .menu-comments {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.7);
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 30px;
             border-radius: 15px;
-            border: 2px solid var(--golden-main);
-            box-shadow: 0 0 20px var(--golden-accent), 0 0 30px var(--inclusive-purple);
+            border: 2px solid #00fffc;
+            box-shadow: 0 0 20px rgba(0,255,252,0.5);
             text-align: center;
             max-width: 800px;
+            width: 90%;
             max-height: 80vh;
             overflow-y: auto;
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
-            color: var(--golden-main);
-            font-family: 'Courier New', monospace;
+            z-index: 1002;
         }
-        .menu.active {
+        .menu-comments.active {
             transform: translate(-50%, -50%) scale(1);
             opacity: 1;
         }
-        .menu h2 {
+        .menu-comments h2 {
             margin: 0 0 15px;
             font-size: 1.8rem;
-            color: var(--golden-main);
-            text-shadow: 0 0 10px var(--golden-accent);
+            color: #00fffc;
         }
-        .menu button {
-            margin: 10px 5px;
-            padding: 10px 20px;
-            border: none;
-            background: var(--golden-accent);
-            color: #000;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
-            font-family: 'Courier New', monospace;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px var(--golden-main);
-        }
-        .menu button:hover {
-            background: var(--golden-main);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--golden-accent);
-        }
+
+        /* ===== SECCIÓN DE COMENTARIOS ===== */
         .comment-section {
             max-width: 750px;
             margin: 1rem auto;
-            padding: 0 20px;
+            padding: 0 10px;
         }
         .comment-form {
             background: rgba(0, 0, 0, 0.9);
-            border: 2px solid var(--golden-main);
+            border: 2px solid #00fffc;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px var(--golden-accent);
+            margin-bottom: 20px;
         }
         .comment-form h2 {
-            color: var(--golden-main);
-            text-shadow: 0 0 10px var(--golden-accent);
+            color: #00fffc;
             margin-bottom: 20px;
+            font-size: 1.5rem;
         }
         .comment-form input, .comment-form textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            background: #111;
-            border: 1px solid var(--golden-accent);
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #00fffc;
             color: white;
             border-radius: 5px;
             font-family: 'Courier New', monospace;
@@ -680,44 +362,41 @@
             resize: none;
         }
         .comment-form button {
-            background: var(--golden-accent);
-            border: 2px solid var(--golden-main);
+            background: linear-gradient(45deg, #00fffc, #fc00ff);
+            border: none;
             color: #000;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
+            font-weight: bold;
+            width: 100%;
         }
         .comment-form button:hover {
-            background: var(--golden-main);
-            box-shadow: 0 0 15px var(--golden-accent);
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
         .comment-list {
             margin-top: 2rem;
         }
         .comment {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid var(--golden-main);
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00fffc;
             padding: 15px;
             margin-bottom: 15px;
             border-radius: 10px;
-            box-shadow: 0 0 15px var(--inclusive-purple);
             position: relative;
         }
         .comment img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            border: 2px solid var(--hacker-cyan);
-            box-shadow: 0 0 10px var(--diversity-pink);
+            border: 1px solid #00fffc;
             margin-right: 10px;
             float: left;
         }
         .comment strong {
-            color: var(--golden-main);
-            text-shadow: 0 0 5px var(--golden-accent);
+            color: #00fffc;
         }
         .comment p {
             margin: 8px 0;
@@ -725,897 +404,441 @@
         }
         .comment .timestamp {
             font-size: 0.8rem;
-            color: var(--neon-cyan);
+            color: #fc00ff;
         }
-        .comment-actions {
-            margin-top: 10px;
-            display: flex;
-            gap: 10px;
+
+        /* ===== FOOTER ===== */
+        .footer { 
+            background: rgba(0,0,0,0.9); 
+            padding: 3rem 2rem; 
+            text-align: center; 
+            font-family: 'FrasesPersonalizada', sans-serif; 
+            position: relative;
+            border-top: 2px solid #00fffc;
         }
-        .comment-actions button {
-            background: transparent;
-            border: 1px solid var(--hacker-cyan);
-            color: var(--hacker-cyan);
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .footer p {
+            margin: 10px 0;
+            color: #ccc;
         }
-        .comment-actions button:hover {
-            background: var(--hacker-cyan);
-            color: #000;
-            box-shadow: 0 0 10px var(--diversity-pink);
-        }
-        .comment-actions .like-button.liked {
-            color: var(--diversity-pink);
-            border-color: var(--diversity-pink);
-        }
-        .comment-actions .like-button.liked:hover {
-            background: var(--diversity-pink);
-            color: #000;
-        }
-        .reply-form {
-            margin-top: 10px;
-            display: none;
-        }
-        .reply-form.active {
-            display: block;
-        }
-        .reply-form textarea {
-            width: 100%;
-            padding: 10px;
-            background: #111;
-            border: 1px solid var(--golden-accent);
-            color: white;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            height: 60px;
-            resize: none;
-        }
-        .reply-form button {
-            margin-top: 10px;
-            background: var(--golden-accent);
-            border: 2px solid var(--golden-main);
-            color: #000;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .reply-form button:hover {
-            background: var(--golden-main);
-            box-shadow: 0 0 15px var(--golden-accent);
-        }
-        .replies {
-            margin-top: 10px;
-            padding-left: 20px;
-            display: none;
-        }
-        .replies.active {
-            display: block;
-        }
-        .reply {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--golden-accent);
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px var(--inclusive-purple);
-        }
-        .reply img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 1px solid var(--hacker-cyan);
-            margin-right: 8px;
-            float: left;
-        }
-        .profile-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.95);
-            border: 2px solid var(--golden-main);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px var(--golden-accent), 0 0 30px var(--inclusive-purple);
-            z-index: 10001;
-            text-align: center;
-            display: none;
-        }
-        .profile-popup.active {
-            display: block;
-        }
-        .profile-popup p {
-            margin-bottom: 20px;
-            color: var(--golden-main);
-            font-size: 1.2rem;
-        }
-        .profile-popup button {
-            background: var(--golden-accent);
-            border: 2px solid var(--golden-main);
-            color: #000;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .footer a {
+            color: #00fffc;
+            text-decoration: none;
             margin: 0 10px;
+            transition: color 0.3s ease;
         }
-        .profile-popup button:hover {
-            background: var(--golden-main);
-            box-shadow: 0 0 15px var(--golden-accent);
+        .footer a:hover {
+            color: #fc00ff;
         }
-        .creator-badge {
-            animation: rgbGlow 3s infinite;
-            font-weight: bold;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .counter-container {
-                font-size: 1.2rem;
-                margin: 10px 20px;
-                font-weight: bold;
-            }
-            .counter-container div {
-                padding: 8px 15px;
-                min-width: 80px;
-                font-weight: bold;
-            }
-            .gallery {
-                display: none;
-            }
-            .list-container {
-                display: block;
-            }
-            h1 { font-size: 3rem; }
-            .hamburger {
+            .glitch { font-size: 4rem; }
+            .gallery { display: none; }
+            .list-container { display: block; }
+            .bubble {
                 width: 50px;
                 height: 50px;
-                top: 15px;
-                right: 15px;
-            }
-            .hamburger div {
-                width: 25px;
-                height: 3px;
-                margin: 4px 0;
-            }
-            nav { width: 280px; }
-            nav .logo { width: 80px; height: 80px; }
-            .update-popup, .campaign-popup {
-                width: 95%;
-                max-width: 350px;
-                padding: 15px;
-            }
-            .campaign-popup {
-                height: 280px;
-                background-size: contain;
-                background-repeat: no-repeat;
-            }
-            .gif-container img {
-                width: 150px;
-                height: 150px;
-            }
-            .notification {
-                max-width: 250px;
-                padding: 10px;
-            }
-            .notification img { width: 30px; height: 30px; }
-            .bubble {
-                width: 60px;
-                height: 60px;
-                font-size: 28px;
+                font-size: 20px;
                 bottom: 20px;
                 right: 20px;
             }
-            .menu {
-                max-width: 95%;
-                max-width: 700px;
+            .nav-container { padding: 0.8rem 1rem; }
+            .nav-title { font-size: 1rem; }
+            .section { padding: 6rem 1rem; }
+            .section-title { font-size: 2.5rem; }
+            .nav-menu { width: 280px; }
+            .menu-comments {
+                width: 95%;
                 padding: 20px;
             }
-            .menu h2 {
-                font-size: 1.5rem;
-            }
-            .comment-section { padding: 0 10px; }
-            .comment img { width: 30px; height: 30px; }
-            footer a { font-size: 0.9rem; margin: 0 10px; }
+        }
+
+        @media (min-width: 769px) {
+            .list-container { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="loader" id="loader">
-        <div class="loader-content">
-            <div class="loader-header">DPCCREA SYSTEM BOOT</div>
-            <div class="loader-status">Iniciando sistema... <span class="cursor">_</span></div>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
+    <!-- NAV MENU -->
+    <div class="nav-container">
+        <div class="nav-title" id="navTitle">DPCCREA</div>
+        <button class="menu-toggle" id="menuToggle">
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+        <nav class="nav-menu" id="navMenu">
+            <div class="nav-item" onclick="location.href='index.html'">INICIO</div>
+            <div class="nav-item" onclick="location.href='perfil.html'">PERFIL</div>
+            <div class="nav-item" onclick="location.href='creadores.html'">CREADORES</div>
+            <div class="nav-item" onclick="location.href='campaña.html'">CAMPAÑA</div>
+            <div class="nav-item counter-container" id="visitor-counter" style="color: #00fffc; font-size: 1.2rem;">
+                <span>Cargando contador...</span>
             </div>
-            <div class="loader-messages" id="loaderMessages">
-                <div class="message">> Inicializando módulos...</div>
-                <div class="message">> Cargando recursos gráficos...</div>
-                <div class="message">> Verificando conexiones...</div>
-            </div>
-            <div class="loader-footer">© DPCCREA SECURITY SYSTEM v3.1.4</div>
-        </div>
+        </nav>
     </div>
-    <div class="update-popup" id="updatePopup">
-        <h2>ACTUALIZACIÓN 01/09/2025</h2>
-        <div class="update-section">
-            <h3>Novedades</h3>
-            <ul>
-                <li>Contador de visitas RGB en menú hamburguesa</li>
-                <li>Términos y Condiciones en el pie de página</li>
-                <li>GIF reubicado bajo el catálogo</li>
-                <li>Catálogo vertical en móviles como feed de noticias</li>
-                <li>Sección de Creadores añadida al menú</li>
-            </ul>
-        </div>
-        <div class="update-section">
-            <h3>Bugs Solucionados</h3>
-            <ul>
-                <li>Contador ahora sube cada 12 horas</li>
-                <li>Catálogo horizontal reemplazado por vertical en móviles</li>
-                <li>Eliminadas secciones de películas, libros y documentales</li>
-                <li>Eliminado enlace de Iniciar Sesión del menú</li>
-            </ul>
-        </div>
-        <button class="update-button" id="updateButton" disabled>Aceptar</button>
-    </div>
-    <div class="campaign-popup" id="campaignPopup">
-        <h2></h2>
-        <p style="color: var(--golden-main); font-size: 1.2rem; text-shadow: 0 0 5px var(--golden-accent);"></p>
-        <button class="campaign-button" id="campaignButton">Conoce más</button>
-    </div>
-    <div class="profile-popup" id="profilePopup">
-        <p>Debes configurar tu nombre en el perfil para comentar.</p>
-        <button id="goToProfile">Ir al Perfil</button>
-        <button id="cancelPopup">Cancelar</button>
-    </div>
-    <canvas id="matrixCanvas" class="matrix-bg"></canvas>
-    <canvas id="particlesCanvas" class="particles-bg"></canvas>
-    <div class="hamburger" id="hamburger">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <nav id="navMenu">
-        <img src="assets/imagenes/logo.png" alt="DPCCrea Logo" class="logo">
-        <ul>
-            <li><a href="index.html">INICIO</a></li>
-            <li><a href="perfil.html">PERFIL</a></li>
-            <li><a href="creadores.html">CREADORES</a></li>
-            <li><a href="campaña.html">CAMPAÑA</a></li>
-            <li class="counter-container">
-                <div id="visitor-counter">
-                    <span class="counter-fallback">Cargando contador...</span>
-                </div>
-            </li>
-        </ul>
-    </nav>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- CONTENIDO PRINCIPAL -->
     <div class="content" id="mainContent">
-        <header id="inicio">
-            <h1>DPCCrea</h1>
-            <p style="margin-top: 1rem; color: var(--golden-accent); font-size: 1.5rem;">// Recursos sobre Sexualidad, Identidad y Diversidad //</p>
-            <p style="color: var(--inclusive-purple); font-size: 1.2rem;">DISEÑADO POR L_Adriano</p>
-        </header>
-        <div class="gallery" id="catalogo">
-            <div class="gallery-item" onclick="window.location.href='Mediación.html'">
-                <img src="assets/imagenes/1.jpg" alt="Mediación Escolar">
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1 class="glitch">DPCCREA</h1>
+            <div class="typewriter-container">
+                <div class="typewriter"><span class="typewriter-text" id="typewriter"></span></div>
             </div>
-            <div class="gallery-item" onclick="window.location.href='sexualidad.html'">
-                <img src="assets/imagenes/2.jpg" alt="Sexualidad e Identidad">
+            <button class="btn" onclick="document.querySelector('.section').scrollIntoView({behavior:'smooth'})" style="
+                padding: 1.2rem 3rem;
+                background: linear-gradient(45deg, #00fffc, #fc00ff);
+                border: none; 
+                border-radius: 50px; 
+                color: white; 
+                font-weight: bold; 
+                text-transform: uppercase;
+                font-family: 'NombresPersonalizada', sans-serif; 
+                cursor: pointer; 
+                transition: all .3s;
+                margin-top: 2rem;
+                font-size: 1.1rem;
+            ">EXPLORAR CATÁLOGO</button>
+        </section>
+
+        <!-- CATÁLOGO SECTION -->
+        <section class="section">
+            <h2 class="section-title">Recursos Educativos</h2>
+            
+            <!-- Galería para Desktop -->
+            <div class="gallery" id="catalogo">
+                <div class="gallery-item" onclick="window.location.href='Mediación.html'">
+                    <img src="assets/imagenes/1.jpg" alt="Mediación Escolar">
+                </div>
+                <div class="gallery-item" onclick="window.location.href='sexualidad.html'">
+                    <img src="assets/imagenes/2.jpg" alt="Sexualidad e Identidad">
+                </div>
+                <div class="gallery-item" onclick="window.location.href='arbol.html'">
+                    <img src="assets/imagenes/3.jpg" alt="Diversidad Cultural">
+                </div>
+                <div class="gallery-item" onclick="window.location.href='pdf.html'">
+                    <img src="assets/imagenes/4.jpg" alt="Recursos Educativos">
+                </div>
+                <div class="gallery-item" onclick="window.location.href='campaña.html'">
+                    <img src="assets/imagenes/52.jpg" alt="Educación Inclusiva">
+                </div>
+                <div class="gallery-item" onclick="window.location.href='23.html'">
+                    <img src="assets/imagenes/61.png" alt="Bienestar Emocional">
+                </div>
+                <div class="gallery-item" onclick="window.location.href='Nutri.html'">
+                    <img src="assets/imagenes/71.png" alt="Género y Equidad">
+                </div>
+                <div class="gallery-item" onclick="window.location.href='nueva4.html'">
+                    <img src="assets/imagenes/8.jpg" alt="Comunidad Segura">
+                </div>
             </div>
-            <div class="gallery-item" onclick="window.location.href='arbol.html'">
-                <img src="assets/imagenes/3.jpg" alt="Diversidad Cultural">
+
+            <!-- Lista para Móviles -->
+            <div class="list-container" id="catalogo-list">
+                <div class="list-item" onclick="window.location.href='Mediación.html'">
+                    <img src="assets/imagenes/1.jpg" alt="Mediación Escolar">
+                </div>
+                <div class="list-item" onclick="window.location.href='sexualidad.html'">
+                    <img src="assets/imagenes/2.jpg" alt="Sexualidad e Identidad">
+                </div>
+                <div class="list-item" onclick="window.location.href='arbol.html'">
+                    <img src="assets/imagenes/3.jpg" alt="Diversidad Cultural">
+                </div>
+                <div class="list-item" onclick="window.location.href='pdf.html'">
+                    <img src="assets/imagenes/4.jpg" alt="Recursos Educativos">
+                </div>
+                <div class="list-item" onclick="window.location.href='campaña.html'">
+                    <img src="assets/imagenes/52.jpg" alt="Educación Inclusiva">
+                </div>
+                <div class="list-item" onclick="window.location.href='23.html'">
+                    <img src="assets/imagenes/61.png" alt="Bienestar Emocional">
+                </div>
+                <div class="list-item" onclick="window.location.href='Nutri.html'">
+                    <img src="assets/imagenes/71.png" alt="Género y Equidad">
+                </div>
+                <div class="list-item" onclick="window.location.href='nueva4.html'">
+                    <img src="assets/imagenes/8.jpg" alt="Comunidad Segura">
+                </div>
             </div>
-            <div class="gallery-item" onclick="window.location.href='pdf.html'">
-                <img src="assets/imagenes/4.jpg" alt="Recursos Educativos">
+
+            <!-- GIF RAINBOW -->
+            <div style="margin: 3rem auto; display: flex; justify-content: center;">
+                <img src="assets/imagenes/rainbow.gif" alt="Rainbow Animation" style="width: 200px; height: 200px; border-radius: 10px; border: 2px solid #00fffc;">
             </div>
-            <div class="gallery-item" onclick="window.location.href='campaña.html'">
-                <img src="assets/imagenes/52.jpg" alt="Educación Inclusiva">
-            </div>
-            <div class="gallery-item" onclick="window.location.href='23.html'">
-                <img src="assets/imagenes/61.png" alt="Bienestar Emocional">
-            </div>
-            <div class="gallery-item" onclick="window.location.href='Nutri.html'">
-                <img src="assets/imagenes/71.png" alt="Género y Equidad">
-            </div>
-            <div class="gallery-item" onclick="window.location.href='nueva4.html'">
-                <img src="assets/imagenes/8.jpg" alt="Comunidad Segura">
-            </div>
-        </div>
-        <div class="list-container" id="catalogo-list">
-            <div class="list-item" onclick="window.location.href='Mediación.html'">
-                <img src="assets/imagenes/1.jpg" alt="Mediación Escolar">
-            </div>
-            <div class="list-item" onclick="window.location.href='sexualidad.html'">
-                <img src="assets/imagenes/2.jpg" alt="Sexualidad e Identidad">
-            </div>
-            <div class="list-item" onclick="window.location.href='arbol.html'">
-                <img src="assets/imagenes/3.jpg" alt="Diversidad Cultural">
-            </div>
-            <div class="list-item" onclick="window.location.href='pdf.html'">
-                <img src="assets/imagenes/4.jpg" alt="Recursos Educativos">
-            </div>
-            <div class="list-item" onclick="window.location.href='campaña.html'">
-                <img src="assets/imagenes/52.jpg" alt="Educación Inclusiva">
-            </div>
-            <div class="list-item" onclick="window.location.href='23.html'">
-                <img src="assets/imagenes/61.png" alt="Bienestar Emocional">
-            </div>
-            <div class="list-item" onclick="window.location.href='Nutri.html'">
-                <img src="assets/imagenes/71.png" alt="Género y Equidad">
-            </div>
-            <div class="list-item" onclick="window.location.href='nueva4.html'">
-                <img src="assets/imagenes/8.jpg" alt="Comunidad Segura">
-            </div>
-        </div>
-        <div class="gif-container">
-            <img src="assets/imagenes/rainbow.gif" alt="Rainbow Animation">
-        </div>
+        </section>
     </div>
+
+    <!-- BOTÓN DE COMENTARIOS -->
     <div class="bubble" id="commentBubble">💬</div>
-    <div class="menu-overlay" id="overlay">
-        <div class="menu" id="menu">
+
+    <!-- MENÚ DE COMENTARIOS -->
+    <div class="menu-overlay" id="commentsOverlay">
+        <div class="menu-comments" id="commentsMenu">
             <h2>COMENTARIOS</h2>
             <div class="comment-section">
                 <div class="comment-form">
                     <h2>DEJA TU COMENTARIO</h2>
                     <input type="text" id="nameInput" placeholder="Nombre (configura en tu perfil)" maxlength="30" readonly>
                     <textarea id="commentInput" placeholder="Escribe tu comentario..." maxlength="500"></textarea>
-                    <button id="submitComment">ENVIAR</button>
+                    <button id="submitComment">ENVIAR COMENTARIO</button>
                 </div>
                 <div class="comment-list" id="commentList">
-                    <p style="color: var(--golden-accent); text-align: center;">Cargando comentarios...</p>
+                    <p style="color: #00fffc; text-align: center;">Cargando comentarios...</p>
                 </div>
             </div>
-            <button onclick="toggleMenu()">Cerrar</button>
+            <button onclick="toggleComments()" style="
+                margin: 20px auto 0;
+                padding: 10px 25px;
+                background: linear-gradient(45deg, #fc00ff, #00fffc);
+                border: none;
+                color: white;
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: bold;
+                display: block;
+                width: 100%;
+            ">CERRAR</button>
         </div>
     </div>
-    <footer>
-        <a href="terminos.html">TÉRMINOS Y CONDICIONES</a>
-        <div class="version">Versión 1.13</div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2025 DPCCREA — Recursos educativos sobre sexualidad, identidad y diversidad</p>
+        <p>Diseñado con pasión por L_Adriano</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            <a href="terminos.html">Términos y Condiciones</a>
+            <span style="color: #fc00ff; margin: 0 10px;">|</span>
+            <a href="privacidad.html">Política de Privacidad</a>
+        </p>
     </footer>
+
+    <!-- SCRIPTS -->
     <script type="module">
+        // FIREBASE CONFIGURACIÓN
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, updateDoc, increment, collection, query, orderBy, onSnapshot, addDoc, getDocs, where } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment, collection, query, orderBy, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-        if ("file:" === window.location.protocol) {
-            console.error("❌ Error: Los módulos ES no funcionan en file://");
-            alert("Error: Esta página debe ejecutarse en un servidor HTTP/HTTPS.");
-        } else {
-            try {
-                const firebaseConfig = {
-                    apiKey: "AIzaSyDp7VT6HMYBgqnrYfc84Tk9kh82nCBTYtM",
-                    authDomain: "dpccrea-login.firebaseapp.com",
-                    projectId: "dpccrea-login",
-                    appId: "1:822726011803:web:6b8f3e6a9d8c7b2e8f4e5d"
-                };
-                const app = initializeApp(firebaseConfig);
-                const db = getFirestore(app);
-                const counterDoc = doc(db, "visitas", "contador");
-                const commentsCollection = collection(db, "comentarios");
-                const visitorCounter = document.getElementById("visitor-counter");
-                const nameInput = document.getElementById('nameInput');
-                const commentInput = document.getElementById('commentInput');
-                const submitComment = document.getElementById('submitComment');
-                const commentList = document.getElementById('commentList');
-                const profilePopup = document.getElementById('profilePopup');
-                const goToProfile = document.getElementById('goToProfile');
-                const cancelPopup = document.getElementById('cancelPopup');
-                const creatorNames = ["L_Adriano", "SalchiHot"];
-                let usedCreatorNames = [];
-                let currentUser = JSON.parse(localStorage.getItem('dpccrea_user')) || {};
+        const firebaseConfig = {
+            apiKey: "AIzaSyDp7VT6HMYBgqnrYfc84Tk9kh82nCBTYtM",
+            authDomain: "dpccrea-login.firebaseapp.com",
+            projectId: "dpccrea-login",
+            appId: "1:822726011803:web:6b8f3e6a9d8c7b2e8f4e5d"
+        };
 
-                const loadUsedCreatorNames = async () => {
-                    try {
-                        const querySnapshot = await getDocs(collection(db, "comentarios"));
-                        querySnapshot.forEach((doc) => {
-                            const data = doc.data();
-                            if (creatorNames.includes(data.name)) {
-                                usedCreatorNames.push(data.name);
-                            }
-                        });
-                    } catch (error) {
-                        console.error("❌ Error al cargar nombres de creadores:", error);
-                    }
-                };
-
-                const setupNameField = () => {
-                    if (nameInput && currentUser.username) {
-                        nameInput.value = currentUser.username;
-                        nameInput.title = "Nombre configurado en tu perfil";
-                    } else {
-                        nameInput.value = "";
-                        nameInput.placeholder = "Haz clic aquí para configurar tu nombre";
-                        nameInput.addEventListener('click', showProfilePopup);
-                    }
-                };
-
-                const showProfilePopup = () => {
-                    profilePopup.classList.add('active');
-                    document.querySelector('.content').classList.add('blur');
-                };
-
-                const hideProfilePopup = () => {
-                    profilePopup.classList.remove('active');
-                };
-
-                const playNotificationSound = () => {
-                    try {
-                        let audio = new Audio("https://assets.codepen.io/3011180/notification-sound-1.mp3");
-                        audio.volume = 0.3;
-                        audio.play().catch(err => console.error("❌ Error al reproducir sonido:", err));
-                    } catch (error) {
-                        console.error("❌ Error al crear audio:", error);
-                    }
-                };
-
-                const showNotification = (name, message, profilePic) => {
-                    let notification = document.createElement("div");
-                    notification.className = "notification";
-                    notification.innerHTML = `
-                        <img src="${profilePic || currentUser.profilePic || 'https://via.placeholder.com/50'}" alt="Perfil">
-                        <div>
-                            <strong><i class="fas fa-bell"></i> Nuevo comentario</strong>
-                            <p>${name}: "${message.length > 50 ? message.substring(0, 47) + '...' : message}"</p>
-                        </div>
-                    `;
-                    document.body.appendChild(notification);
-                    playNotificationSound();
-                    setTimeout(() => {
-                        notification.style.animation = "notifOut 0.5s ease-out";
-                        setTimeout(() => {
-                            if (notification.parentElement) document.body.removeChild(notification);
-                        }, 500);
-                    }, 5000);
-                };
-
-                const createCommentElement = (name, message, timestamp, id, likes, liked, profilePic) => {
-                    let commentEl = document.createElement("div");
-                    commentEl.className = "comment";
-                    commentEl.dataset.id = id;
-                    const isCreator = creatorNames.includes(name);
-                    commentEl.innerHTML = `
-                        <img src="${profilePic || currentUser.profilePic || 'https://via.placeholder.com/50'}" alt="Perfil">
-                        <strong>${name || "Anónimo"} ${isCreator ? '<span class="creator-badge">[Creador]</span>' : ''}</strong>
-                        <p>${message}</p>
-                        <p class="timestamp">${new Date(timestamp).toLocaleString("es-ES", {dateStyle: "short", timeStyle: "short"})}</p>
-                        <div class="comment-actions">
-                            <button class="like-button" data-id="${id}" data-liked="${liked ? "true" : "false"}">
-                                <i class="${liked ? "fas" : "far"} fa-heart"></i> <span>${likes || 0}</span>
-                            </button>
-                            <button class="reply-button" data-id="${id}">Responder</button>
-                            <button class="show-replies-button" data-id="${id}" style="display: none;">Ver respuestas</button>
-                        </div>
-                        <div class="reply-form" data-id="${id}">
-                            <textarea placeholder="Escribe tu respuesta..." maxlength="500"></textarea>
-                            <button>Enviar Respuesta</button>
-                        </div>
-                        <div class="replies" data-id="${id}"></div>
-                    `;
-                    commentEl.querySelector(".like-button").addEventListener("click", function() {
-                        let commentId = this.dataset.id;
-                        let isLiked = this.dataset.liked === "true";
-                        updateDoc(doc(db, "comentarios", commentId), {
-                            likes: increment(isLiked ? -1 : 1)
-                        }).then(() => {
-                            this.dataset.liked = isLiked ? "false" : "true";
-                            this.classList.toggle("liked");
-                            let heartIcon = this.querySelector("i");
-                            let likesCount = this.querySelector("span");
-                            heartIcon.className = isLiked ? "far fa-heart" : "fas fa-heart";
-                            likesCount.textContent = isLiked ? (parseInt(likesCount.textContent) - 1) : (parseInt(likesCount.textContent) + 1);
-                            console.log(`❤️ Like ${isLiked ? "eliminado" : "agregado"} al comentario ${commentId}`);
-                        }).catch(error => {
-                            console.error("❌ Error al actualizar like:", error);
-                        });
-                    });
-                    commentEl.querySelector(".reply-button").addEventListener("click", function() {
-                        let commentId = this.dataset.id;
-                        let replyForm = document.querySelector(`.reply-form[data-id="${commentId}"]`);
-                        replyForm.classList.toggle("active");
-                    });
-                    commentEl.querySelector(".reply-form button").addEventListener("click", function() {
-                        let commentId = this.parentElement.dataset.id;
-                        let replyTextarea = this.parentElement.querySelector("textarea");
-                        let replyText = replyTextarea.value.trim();
-                        if (replyText) {
-                            let replyName = currentUser.username || "Anónimo";
-                            let replyTimestamp = new Date().toISOString();
-                            let replyEl = document.createElement("div");
-                            replyEl.className = "reply";
-                            replyEl.innerHTML = `
-                                <img src="${currentUser.profilePic || 'https://via.placeholder.com/50'}" alt="Perfil">
-                                <strong>${replyName}</strong>
-                                <p>${replyText}</p>
-                                <p class="timestamp">${new Date(replyTimestamp).toLocaleString("es-ES", {dateStyle: "short", timeStyle: "short"})}</p>
-                            `;
-                            let repliesContainer = document.querySelector(`.replies[data-id="${commentId}"]`);
-                            repliesContainer.appendChild(replyEl);
-                            let showRepliesButton = document.querySelector(`.show-replies-button[data-id="${commentId}"]`);
-                            showRepliesButton.style.display = "inline-block";
-                            replyTextarea.value = "";
-                            this.parentElement.classList.remove("active");
-                            console.log(`💬 Respuesta enviada al comentario ${commentId}`);
-                        }
-                    });
-                    commentEl.querySelector(".show-replies-button").addEventListener("click", function() {
-                        let commentId = this.dataset.id;
-                        let repliesContainer = document.querySelector(`.replies[data-id="${commentId}"]`);
-                        repliesContainer.classList.toggle("active");
-                        this.textContent = repliesContainer.classList.contains("active") ? "Ocultar respuestas" : "Ver respuestas";
-                    });
-                    return commentEl;
-                };
-
-                const submitCommentHandler = () => {
-                    let name = currentUser.username || "Anónimo";
-                    let message = commentInput.value.trim();
-                    if (!currentUser.username) {
-                        showProfilePopup();
-                        return;
-                    }
-                    if (!message) {
-                        alert("Por favor, escribe un comentario.");
-                        return;
-                    }
-                    if (creatorNames.includes(name) && usedCreatorNames.includes(name)) {
-                        alert("Este nombre de creador ya está en uso. Por favor, elige otro nombre en tu perfil.");
-                        showProfilePopup();
-                        return;
-                    }
-                    submitComment.disabled = true;
-                    let timestamp = new Date().toISOString();
-                    addDoc(commentsCollection, {
-                        name: name,
-                        message: message,
-                        timestamp: timestamp,
-                        likes: 0,
-                        profilePic: currentUser.profilePic || 'https://via.placeholder.com/50'
-                    }).then(() => {
-                        commentInput.value = "";
-                        submitComment.disabled = false;
-                        console.log("💬 Comentario enviado:", name);
-                        if (creatorNames.includes(name) && !usedCreatorNames.includes(name)) {
-                            usedCreatorNames.push(name);
-                        }
-                    }).catch(error => {
-                        console.error("❌ Error al enviar comentario:", error);
-                        alert("Error al enviar el comentario. Intenta de nuevo.");
-                        submitComment.disabled = false;
-                    });
-                };
-
-                const loadComments = () => {
-                    let loadedCommentIds = new Set();
-                    const q = query(commentsCollection, orderBy("timestamp", "desc"));
-                    onSnapshot(q, (snapshot) => {
-                        if (commentList.querySelector('p')) {
-                            commentList.innerHTML = '';
-                        }
-                        snapshot.forEach((doc) => {
-                            let data = doc.data();
-                            if (!loadedCommentIds.has(doc.id)) {
-                                loadedCommentIds.add(doc.id);
-                                let commentEl = createCommentElement(
-                                    data.name,
-                                    data.message,
-                                    data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp),
-                                    doc.id,
-                                    data.likes || 0,
-                                    false,
-                                    data.profilePic
-                                );
-                                commentList.appendChild(commentEl);
-                            }
-                        });
-                        snapshot.docChanges().forEach((change) => {
-                            if (change.type === "added") {
-                                let doc = change.doc;
-                                let data = doc.data();
-                                if (!loadedCommentIds.has(doc.id)) {
-                                    loadedCommentIds.add(doc.id);
-                                    if (data.name !== currentUser.username) {
-                                        showNotification(data.name, data.message, data.profilePic);
-                                    }
-                                }
-                            }
-                        });
-                    }, (error) => {
-                        console.error("❌ Error al cargar comentarios:", error);
-                        commentList.innerHTML = '<p style="color: var(--neon-pink); text-align: center;">Error al cargar comentarios. Intenta recargar la página.</p>';
-                    });
-                };
-
-                onSnapshot(counterDoc, (doc) => {
-                    if (doc.exists()) {
-                        const count = doc.data().count;
-                        visitorCounter.innerHTML = `<strong>Visitas: ${new Intl.NumberFormat().format(count)}</strong>`;
-                    } else {
-                        visitorCounter.innerHTML = '<span class="counter-fallback">0</span>';
-                    }
-                }, (err) => {
-                    console.error("❌ Error al escuchar contador:", err);
-                    visitorCounter.innerHTML = '<span class="counter-fallback">[--]</span>';
-                });
-
-                const lastVisit = localStorage.getItem("dpccrea_lastVisit");
-                const now = Date.now();
-                const twelveHours = 43200000;
-                if (!lastVisit || now - parseInt(lastVisit) > twelveHours) {
-                    updateDoc(counterDoc, { count: increment(1) }).then(() => {
-                        localStorage.setItem("dpccrea_lastVisit", now.toString());
-                        console.log("%c📈 Contador incrementado", "color: #FFD700");
-                    }).catch(err => console.error("❌ Error al aumentar contador:", err));
+        try {
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            
+            // CONTADOR DE VISITAS
+            const counterDoc = doc(db, "visitas", "contador");
+            const visitorCounter = document.getElementById("visitor-counter");
+            
+            // COMENTARIOS
+            const commentsCollection = collection(db, "comentarios");
+            const nameInput = document.getElementById('nameInput');
+            const commentInput = document.getElementById('commentInput');
+            const submitComment = document.getElementById('submitComment');
+            const commentList = document.getElementById('commentList');
+            
+            let currentUser = JSON.parse(localStorage.getItem('dpccrea_user')) || {};
+            
+            // CARGAR CONTADOR
+            onSnapshot(counterDoc, (doc) => {
+                if (doc.exists()) {
+                    const count = doc.data().count;
+                    visitorCounter.innerHTML = `<span style="color: #00fffc;">Visitas: ${new Intl.NumberFormat().format(count)}</span>`;
                 }
-
-                document.addEventListener("DOMContentLoaded", async () => {
-                    await loadUsedCreatorNames();
-                    setupNameField();
-                    if (submitComment) {
-                        submitComment.addEventListener("click", submitCommentHandler);
-                    }
-                    if (commentInput) {
-                        commentInput.addEventListener("keypress", (e) => {
-                            if (e.key === "Enter" && !e.shiftKey) {
-                                e.preventDefault();
-                                submitCommentHandler();
-                            }
-                        });
-                    }
-                    if (goToProfile) {
-                        goToProfile.addEventListener("click", () => {
-                            window.location.href = "perfil.html";
-                        });
-                    }
-                    if (cancelPopup) {
-                        cancelPopup.addEventListener("click", hideProfilePopup);
-                    }
-                    loadComments();
+            });
+            
+            // INCREMENTAR CONTADOR CADA 12 HORAS
+            const lastVisit = localStorage.getItem("dpccrea_lastVisit");
+            const now = Date.now();
+            const twelveHours = 43200000;
+            if (!lastVisit || now - parseInt(lastVisit) > twelveHours) {
+                updateDoc(counterDoc, { count: increment(1) }).then(() => {
+                    localStorage.setItem("dpccrea_lastVisit", now.toString());
                 });
-
-            } catch (err) {
-                console.error("❌ Error al inicializar Firebase:", err);
-                alert("No se pudo inicializar Firebase. Verifica la configuración o la conexión.");
             }
+            
+            // CONFIGURAR NOMBRE DE USUARIO
+            const setupNameField = () => {
+                if (nameInput && currentUser.username) {
+                    nameInput.value = currentUser.username;
+                    nameInput.title = "Nombre configurado en tu perfil";
+                } else {
+                    nameInput.value = "";
+                    nameInput.placeholder = "Configura tu nombre en el perfil";
+                }
+            };
+            
+            // CARGAR COMENTARIOS
+            const loadComments = () => {
+                const q = query(commentsCollection, orderBy("timestamp", "desc"));
+                onSnapshot(q, (snapshot) => {
+                    if (commentList.querySelector('p')) {
+                        commentList.innerHTML = '';
+                    }
+                    snapshot.forEach((doc) => {
+                        let data = doc.data();
+                        let commentEl = document.createElement("div");
+                        commentEl.className = "comment";
+                        commentEl.innerHTML = `
+                            <img src="${data.profilePic || 'https://via.placeholder.com/50'}" alt="Perfil">
+                            <strong>${data.name || "Anónimo"}</strong>
+                            <p>${data.message}</p>
+                            <p class="timestamp">${new Date(data.timestamp?.toDate() || data.timestamp).toLocaleString("es-ES")}</p>
+                        `;
+                        commentList.appendChild(commentEl);
+                    });
+                });
+            };
+            
+            // ENVIAR COMENTARIO
+            const submitCommentHandler = () => {
+                let name = currentUser.username || "Anónimo";
+                let message = commentInput.value.trim();
+                
+                if (!currentUser.username) {
+                    alert("Por favor, configura tu nombre en el perfil primero.");
+                    return;
+                }
+                
+                if (!message) {
+                    alert("Por favor, escribe un comentario.");
+                    return;
+                }
+                
+                submitComment.disabled = true;
+                let timestamp = new Date().toISOString();
+                
+                addDoc(commentsCollection, {
+                    name: name,
+                    message: message,
+                    timestamp: timestamp,
+                    profilePic: currentUser.profilePic || 'https://via.placeholder.com/50'
+                }).then(() => {
+                    commentInput.value = "";
+                    submitComment.disabled = false;
+                }).catch(error => {
+                    console.error("Error al enviar comentario:", error);
+                    submitComment.disabled = false;
+                });
+            };
+            
+            // INICIALIZAR
+            document.addEventListener("DOMContentLoaded", () => {
+                setupNameField();
+                loadComments();
+                
+                if (submitComment) {
+                    submitComment.addEventListener("click", submitCommentHandler);
+                }
+                
+                if (commentInput) {
+                    commentInput.addEventListener("keypress", (e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault();
+                            submitCommentHandler();
+                        }
+                    });
+                }
+            });
+            
+        } catch (err) {
+            console.error("Error con Firebase:", err);
+            visitorCounter.innerHTML = `<span style="color: #fc00ff;">Error de conexión</span>`;
         }
+    </script>
 
-        const loader = document.getElementById('loader');
-        const progressBar = document.getElementById('progressBar');
-        const loaderMessages = document.getElementById('loaderMessages');
-        const statusText = document.querySelector('.loader-status');
-        const updatePopup = document.getElementById('updatePopup');
-        const updateButton = document.getElementById('updateButton');
-        const campaignPopup = document.getElementById('campaignPopup');
-        const campaignButton = document.getElementById('campaignButton');
-        const mainContent = document.getElementById('mainContent');
-        const commentBubble = document.getElementById('commentBubble');
-        const menu = document.getElementById('menu');
-        const overlay = document.getElementById('overlay');
-
-        const systemMessages = [
-            {text: "> Conectando con servidor DPCCREA...", type: ""},
-            {text: "[OK] Conexión establecida", type: "success"},
-            {text: "> Cargando módulo de diseño...", type: ""},
-            {text: "[WARNING] Alto consumo de recursos gráficos", type: "warning"},
-            {text: "> Inicializando base de datos...", type: ""},
-            {text: "[OK] 1428 registros cargados", type: "success"},
-            {text: "> Verificando licencia...", type: ""},
-            {text: "[OK] Licencia Premium activa", type: "success"},
-            {text: "> Cargando recursos de diversidad...", type: ""},
-            {text: "[OK] Sistema listo para usar", type: "success"}
+    <script>
+        // TEXTS PARA TYPEWRITER
+        const heroTexts = [
+            "Educación sobre sexualidad e identidad...",
+            "Diversidad y respeto...",
+            "Recursos educativos para todos...",
+            "Pagina libre para todos..."
         ];
 
-        let progress = 0;
-        let messageIndex = 0;
-
-        function centerPopups() {
-            updatePopup.style.top = '50%';
-            updatePopup.style.left = '50%';
-            updatePopup.style.transform = 'translate(-50%, -50%)';
-            campaignPopup.style.top = '50%';
-            campaignPopup.style.left = '50%';
-            campaignPopup.style.transform = 'translate(-50%, -50%)';
-            menu.style.top = '50%';
-            menu.style.left = '50%';
-            menu.style.transform = menu.classList.contains('active') ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.7)';
-        }
-
-        function updateProgress() {
-            if (progress < 100) {
-                progress += Math.random() * 10;
-                if (progress > 100) progress = 100;
-                progressBar.style.width = progress + '%';
-                if (messageIndex < systemMessages.length && progress >= (messageIndex + 1) * (100 / systemMessages.length)) {
-                    const msg = document.createElement('div');
-                    msg.className = `message ${systemMessages[messageIndex].type}`;
-                    msg.textContent = systemMessages[messageIndex].text;
-                    loaderMessages.appendChild(msg);
-                    loaderMessages.scrollTop = loaderMessages.scrollHeight;
-                    messageIndex++;
+        // TYPEWRITER CLASS
+        class TypeWriter {
+            constructor(el, phrases, speed=90, del=40, pause=2000) {
+                this.el = el;
+                this.phrases = phrases;
+                this.speed = speed;
+                this.del = del;
+                this.pause = pause;
+                this.i = 0;
+                this.j = 0;
+                this.deleting = false;
+                this.type();
+            }
+            type() {
+                const full = this.phrases[this.i];
+                this.el.textContent = this.deleting ? full.substring(0, this.j--) : full.substring(0, this.j++);
+                if (!this.deleting && this.j === full.length) {
+                    setTimeout(() => this.deleting = true, this.pause);
+                } else if (this.deleting && this.j === 0) {
+                    this.deleting = false;
+                    this.i = (this.i + 1) % this.phrases.length;
                 }
-                statusText.innerHTML = getStatusText(progress) + ' <span class="cursor">_</span>';
-                setTimeout(updateProgress, 100);
-            } else {
-                statusText.innerHTML = "Sistema listo <span class='cursor'>_</span>";
-                setTimeout(() => {
-                    loader.style.opacity = '0';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                        mainContent.classList.add('blur');
-                        updatePopup.classList.add('active');
-                        centerPopups();
-                        setTimeout(() => {
-                            updateButton.disabled = false;
-                            updateButton.classList.add('enabled');
-                        }, 2000);
-                    }, 500);
-                }, 500);
+                setTimeout(() => this.type(), this.deleting ? this.del : this.speed);
             }
         }
 
-        function getStatusText(progress) {
-            if (progress < 30) return "Inicializando núcleo del sistema...";
-            if (progress < 60) return "Cargando recursos de diversidad...";
-            if (progress < 90) return "Optimizando rendimiento...";
-            return "Finalizando procesos...";
-        }
-
-        updateButton.addEventListener('click', () => {
-            if (!updateButton.disabled) {
-                updatePopup.classList.remove('active');
-                mainContent.classList.remove('blur');
-            }
-        });
-
-        campaignButton.addEventListener('click', () => {
-            campaignPopup.classList.remove('active');
-            mainContent.classList.remove('blur');
-            window.location.href = 'campaña.html';
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'ñ' || event.key === 'Ñ') {
-                campaignPopup.classList.toggle('active');
-                mainContent.classList.toggle('blur');
-                centerPopups();
-            }
-        });
-
-        commentBubble.addEventListener('click', () => {
-            overlay.classList.add('active');
-            menu.classList.add('active');
-            mainContent.classList.add('blur');
-            centerPopups();
-        });
-
-        function toggleMenu() {
-            overlay.classList.remove('active');
-            menu.classList.remove('active');
-            mainContent.classList.remove('blur');
-        }
-
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) toggleMenu();
-        });
-
-        window.addEventListener('resize', () => {
-            centerPopups();
-            matrixCanvas.width = window.innerWidth;
-            matrixCanvas.height = window.innerHeight;
-            particlesCanvas.width = window.innerWidth;
-            particlesCanvas.height = window.innerHeight;
-        });
-
-        setTimeout(updateProgress, 2000);
-
-        const matrixCanvas = document.getElementById('matrixCanvas');
-        const matrixCtx = matrixCanvas.getContext('2d');
-        matrixCanvas.width = window.innerWidth;
-        matrixCanvas.height = window.innerHeight;
-        const chars = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾁﾔﾖﾌﾝ★☆◆◇♠♣♥♦";
-        const fontSize = 20;
-        const columns = matrixCanvas.width / fontSize;
-        const drops = [];
-        for (let i = 0; i < columns; i++) {
-            drops[i] = Math.floor(Math.random() * matrixCanvas.height);
-        }
-
-        function drawMatrix() {
-            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.06)';
-            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--golden-accent').trim();
-            matrixCtx.font = `bold ${fontSize}px monospace`;
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > matrixCanvas.height || Math.random() > 0.97) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-        setInterval(drawMatrix, 40);
-
-        const particlesCanvas = document.getElementById('particlesCanvas');
-        const particlesCtx = particlesCanvas.getContext('2d');
-        particlesCanvas.width = window.innerWidth;
-        particlesCanvas.height = window.innerHeight;
-        const particlesArray = [];
-        const particleCount = 50;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * particlesCanvas.width;
-                this.y = Math.random() * particlesCanvas.height;
-                this.size = Math.random() * 5 + 2;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.size > 0.2) this.size -= 0.05;
-                if (this.x < 0 || this.x > particlesCanvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > particlesCanvas.height) this.speedY *= -1;
-            }
-            draw() {
-                particlesCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--golden-accent').trim();
-                particlesCtx.beginPath();
-                particlesCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                particlesCtx.fill();
-            }
-        }
-
-        function initParticles() {
-            for (let i = 0; i < particleCount; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            particlesCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            particlesCtx.fillRect(0, 0, particlesCanvas.width, particlesCanvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                if (particlesArray[i].size <= 0.2) {
-                    particlesArray.splice(i, 1);
-                    i--;
-                    particlesArray.push(new Particle());
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
-        initParticles();
-        animateParticles();
-
-        const hamburger = document.getElementById('hamburger');
+        // MENÚ HAMBURGUESA
+        const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
-            if (navMenu.classList.contains('active')) {
-                hamburger.children[0].style.transform = 'rotate(45deg) translate(8px, 8px)';
-                hamburger.children[1].style.opacity = '0';
-                hamburger.children[2].style.transform = 'rotate(-45deg) translate(8px, -8px)';
-            } else {
-                hamburger.children[0].style.transform = 'none';
-                hamburger.children[1].style.opacity = '1';
-                hamburger.children[2].style.transform = 'none';
-            }
+            menuOverlay.classList.toggle('active');
         });
+        
+        menuOverlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        });
+
+        // COMENTARIOS
+        const commentBubble = document.getElementById('commentBubble');
+        const commentsMenu = document.getElementById('commentsMenu');
+        const commentsOverlay = document.getElementById('commentsOverlay');
+        
+        function toggleComments() {
+            commentsOverlay.classList.toggle('active');
+            commentsMenu.classList.toggle('active');
+        }
+
+        commentBubble.addEventListener('click', toggleComments);
+        commentsOverlay.addEventListener('click', (e) => {
+            if (e.target === commentsOverlay) toggleComments();
+        });
+
+        // INICIALIZAR TYPEWRITER
+        document.addEventListener('DOMContentLoaded', () => {
+            new TypeWriter(document.getElementById('typewriter'), heroTexts);
+        });
+
+        // NAV TITLE ANIMATION
+        const navTitle = document.getElementById('navTitle');
+        const navTitles = ["DPCCREA", "MathiGod", "L_Adriano", "5B", "❤️s"];
+        let currentNavTitle = 0;
+        
+        function rotateNavTitle() {
+            navTitle.style.opacity = '0';
+            setTimeout(() => {
+                currentNavTitle = (currentNavTitle + 1) % navTitles.length;
+                navTitle.textContent = navTitles[currentNavTitle];
+                navTitle.style.opacity = '1';
+            }, 500);
+        }
+        
+        // Cambiar título cada 5 segundos
+        setInterval(rotateNavTitle, 5000);
     </script>
 </body>
 </html>
-```
-
-
