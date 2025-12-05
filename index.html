@@ -34,41 +34,6 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        /* ===== HERO SECTION ===== */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 80px;
-            position: relative;
-            z-index: 1;
-        }
-        .glitch {
-            font-size: 8rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
-            animation: glitch 725ms infinite;
-            font-family: 'NombresPersonalizada', sans-serif;
-        }
-        @keyframes glitch {
-            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff; }
-            15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff; }
-            16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff; }
-            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff; }
-            50% { text-shadow: 0.05em 0.05em 0 #00fffc, 0em 0em 0 #fc00ff; }
-            99% { text-shadow: 0.05em 0.05em 0 #00fffc, 0em 0em 0 #fc00ff; }
-            100% { text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff; }
-        }
-
-        .typewriter-container { height: 80px; margin: 2rem 0; }
-        .typewriter { font-size: 2rem; letter-spacing: 3px; font-family: 'FrasesPersonalizada', sans-serif; }
-        .typewriter-text { border-right: 3px solid #00fffc; padding-right: 5px; animation: blink 0.7s infinite; }
-        @keyframes blink { 0%,100% { border-color:#00fffc; } 50% { border-color:transparent; } }
-
         /* ===== NAV MENU ===== */
         .nav-container {
             position: fixed; 
@@ -96,7 +61,8 @@
         }
         @keyframes rgbFlow { 0%{background-position:0%} 100%{background-position:300%} }
 
-        .nav-title {
+        /* NUEVO: TYPEWRITER EN EL NAV */
+        .typewriter-nav {
             font-size: 1.3rem; 
             font-weight: bold; 
             background: linear-gradient(90deg, #00fffc, #fc00ff, #fffc00);
@@ -105,10 +71,16 @@
             color: transparent; 
             text-transform: uppercase;
             font-family: 'NombresPersonalizada', sans-serif;
-            position: relative;
-            overflow: hidden;
+            min-height: 30px;
+            min-width: 150px;
+        }
+        .typewriter-nav-text {
+            border-right: 2px solid #00fffc;
+            padding-right: 3px;
+            animation: blink 0.7s infinite;
         }
 
+        /* MENÚ HAMBURGUESA MEJORADO */
         .menu-toggle { 
             background: linear-gradient(45deg, #00fffc, #fc00ff); 
             border: none; 
@@ -145,7 +117,7 @@
             align-items: center;
             transition: all .5s cubic-bezier(0.68,-0.55,0.265,1.55); 
             border-left: 3px solid; 
-            border-image: linear-gradient(#00fffc, #fc00ff) 1;
+            border-image: linear-gradient(#00fffc,#fc00ff) 1;
             z-index: 1001;
         }
         .nav-menu.active { right: 0; }
@@ -183,6 +155,41 @@
             transition: all .4s;
         }
         .menu-overlay.active { opacity: 1; visibility: visible; }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+            position: relative;
+            z-index: 1;
+        }
+        .glitch {
+            font-size: 8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+            font-family: 'NombresPersonalizada', sans-serif;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff; }
+            15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff; }
+            16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff; }
+            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff; }
+            50% { text-shadow: 0.05em 0.05em 0 #00fffc, 0em 0em 0 #fc00ff; }
+            99% { text-shadow: 0.05em 0.05em 0 #00fffc, 0em 0em 0 #fc00ff; }
+            100% { text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff; }
+        }
+
+        .typewriter-container { height: 80px; margin: 2rem 0; }
+        .typewriter { font-size: 2rem; letter-spacing: 3px; font-family: 'FrasesPersonalizada', sans-serif; }
+        .typewriter-text { border-right: 3px solid #00fffc; padding-right: 5px; animation: blink 0.7s infinite; }
+        @keyframes blink { 0%,100% { border-color:#00fffc; } 50% { border-color:transparent; } }
 
         /* ===== CATALOGO DPCCREA ===== */
         .section { padding: 8rem 2rem; text-align: center; }
@@ -443,7 +450,7 @@
                 right: 20px;
             }
             .nav-container { padding: 0.8rem 1rem; }
-            .nav-title { font-size: 1rem; }
+            .typewriter-nav { font-size: 1rem; min-width: 120px; }
             .section { padding: 6rem 1rem; }
             .section-title { font-size: 2.5rem; }
             .nav-menu { width: 280px; }
@@ -451,6 +458,7 @@
                 width: 95%;
                 padding: 20px;
             }
+            .typewriter { font-size: 1.5rem; }
         }
 
         @media (min-width: 769px) {
@@ -459,13 +467,18 @@
     </style>
 </head>
 <body>
-    <!-- NAV MENU -->
+    <!-- NAV MENU MEJORADO -->
     <div class="nav-container">
-        <div class="nav-title" id="navTitle">DPCCREA</div>
+        <!-- NUEVO: TYPEWRITER EN EL NAV -->
+        <div class="typewriter-nav">
+            <span class="typewriter-nav-text" id="navTypewriter"></span>
+        </div>
+        <!-- MENÚ HAMBURGUESA MEJORADO -->
         <button class="menu-toggle" id="menuToggle">
             <div class="hamburger"><span></span><span></span><span></span></div>
         </button>
         <nav class="nav-menu" id="navMenu">
+            <img src="assets/imagenes/logo.png" alt="DPCCrea Logo" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid #00fffc; margin-bottom: 20px;">
             <div class="nav-item" onclick="location.href='index.html'">INICIO</div>
             <div class="nav-item" onclick="location.href='perfil.html'">PERFIL</div>
             <div class="nav-item" onclick="location.href='creadores.html'">CREADORES</div>
@@ -555,7 +568,7 @@
                     <img src="assets/imagenes/61.png" alt="Bienestar Emocional">
                 </div>
                 <div class="list-item" onclick="window.location.href='Nutri.html'">
-                    <img src="assets/imagenes/nutr.jpg" alt="Género y Equidad">
+                    <img src="assets/imagenes/nutri.jpg" alt="Género y Equidad">
                 </div>
                 <div class="list-item" onclick="window.location.href='wampis.html'">
                     <img src="assets/imagenes/wampis.jpg" alt="Comunidad Segura">
@@ -752,14 +765,6 @@
     </script>
 
     <script>
-        // TEXTS PARA TYPEWRITER
-        const heroTexts = [
-            "Educación sobre sexualidad e identidad...",
-            "Diversidad y respeto...",
-            "Recursos educativos para todos...",
-            "Pagina libre para todos..."
-        ];
-
         // TYPEWRITER CLASS
         class TypeWriter {
             constructor(el, phrases, speed=90, del=40, pause=2000) {
@@ -786,7 +791,25 @@
             }
         }
 
-        // MENÚ HAMBURGUESA
+        // TEXTS PARA TYPEWRITERS
+        const heroTexts = [
+            "Educación sobre sexualidad e identidad...",
+            "Diversidad y respeto...",
+            "Recursos educativos para todos...",
+            "Pagina libre para todos..."
+        ];
+        
+        // NUEVO: TEXTS PARA EL NAV TYPEWRITER
+        const navTexts = [
+            "DPCCREA",
+            "MathiGod",
+            "L_Adriano",
+            "5B",
+            "❤️s",
+            "EDUCACIÓN"
+        ];
+
+        // MENÚ HAMBURGUESA MEJORADO
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
         const menuOverlay = document.getElementById('menuOverlay');
@@ -818,31 +841,21 @@
             if (e.target === commentsOverlay) toggleComments();
         });
 
-        // INICIALIZAR TYPEWRITER
+        // INICIALIZAR TYPEWRITERS
         document.addEventListener('DOMContentLoaded', () => {
+            // Typewriter del hero
             new TypeWriter(document.getElementById('typewriter'), heroTexts);
+            
+            // NUEVO: Typewriter del nav
+            new TypeWriter(document.getElementById('navTypewriter'), navTexts, 100, 50, 1500);
+            
+            // Enfocar el body para que funcione el teclado inmediatamente
+            document.body.focus();
+            
+            // Mensaje de bienvenida en consola
+            console.log('%c🎮 DPCCREA - Sistema activado', 'color: #00fffc; font-size: 16px; font-weight: bold;');
+            console.log('%c• Typewriter activado • Menú hamburguesa funcional • Firebase conectado', 'color: #fc00ff;');
         });
-
-        // NAV TITLE ANIMATION
-        const navTitle = document.getElementById('navTitle');
-        const navTitles = ["DPCCREA", "MathiGod", "L_Adriano", "5B", "❤️s"];
-        let currentNavTitle = 0;
-        
-        function rotateNavTitle() {
-            navTitle.style.opacity = '0';
-            setTimeout(() => {
-                currentNavTitle = (currentNavTitle + 1) % navTitles.length;
-                navTitle.textContent = navTitles[currentNavTitle];
-                navTitle.style.opacity = '1';
-            }, 500);
-        }
-        
-        // Cambiar título cada 5 segundos
-        setInterval(rotateNavTitle, 5000);
     </script>
 </body>
 </html>
-
-
-
-
